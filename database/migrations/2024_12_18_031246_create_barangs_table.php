@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('barangs', function (Blueprint $table) {
             $table->id();
-            $table->string('namabarang', 50);
-            $table->decimal('hargasatuan');
+            $table->string('nama_barang', 50);
+            $table->string('sku', 50)->unique();
+            $table->decimal('harga_satuan',10);
             $table->timestamps();
         });
     }

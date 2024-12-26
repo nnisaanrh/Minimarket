@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\barang;
+use App\Models\Barang;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\fascade\DB;
@@ -14,46 +14,43 @@ class BarangSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('barangs')->insert([
-            ['namabarang' => 'Indomie', 'hargasatuan' =>  '3500'],
+       
+
+        Barang::insert([
+            ['nama_barang' => 'Mie Sedap', 'sku' => 'SKU001', 'harga_satuan' => 3500],
+            ['nama_barang' => 'Indomie Goreng', 'sku' => 'SKU002', 'harga_satuan' => 3500],
+            ['nama_barang' => 'Mie Sedap Kari Ayam', 'sku' => 'SKU003', 'harga_satuan' => 3500],
+            ['nama_barang' => 'Supermie Soto', 'sku' => 'SKU004', 'harga_satuan' => 3600],
+            ['nama_barang' => 'Teh Pucuk Harum (350ml)', 'sku' => 'SKU005', 'harga_satuan' => 5000],
+            ['nama_barang' => 'Aqua Botol (600ml)', 'sku' => 'SKU006', 'harga_satuan' => 4000],
+            ['nama_barang' => 'Coca-Cola (330ml)', 'sku' => 'SKU007', 'harga_satuan' => 7500],
+            ['nama_barang' => 'Chitato (68g)', 'sku' => 'SKU008', 'harga_satuan' => 13000],
+            ['nama_barang' => 'Taro Net (50g)', 'sku' => 'SKU009', 'harga_satuan' => 8000],
+            ['nama_barang' => 'SilverQueen (62g)', 'sku' => 'SKU010', 'harga_satuan' => 15000],
+            ['nama_barang' => 'Beng-Beng', 'sku' => 'SKU011', 'harga_satuan' => 2500],
+            ['nama_barang' => 'Susu Ultra (250ml)', 'sku' => 'SKU012', 'harga_satuan' => 6000],
+            ['nama_barang' => 'Good Day Cappuccino (200ml)', 'sku' => 'SKU013', 'harga_satuan' => 4500],
+            ['nama_barang' => 'Oreo (137g)', 'sku' => 'SKU014', 'harga_satuan' => 12000],
+            ['nama_barang' => 'Fanta (1L)', 'sku' => 'SKU015', 'harga_satuan' => 12000],
+            ['nama_barang' => 'Yupi Gummy Bears (45g)', 'sku' => 'SKU016', 'harga_satuan' => 7000],
+            ['nama_barang' => 'Chocolatos', 'sku' => 'SKU017', 'harga_satuan' => 2000],
+            ['nama_barang' => 'Fruit Tea (350ml)', 'sku' => 'SKU018', 'harga_satuan' => 5000],
+            ['nama_barang' => 'Sprite (390ml)', 'sku' => 'SKU019', 'harga_satuan' => 6500],
+            ['nama_barang' => 'Lays BBQ (68g)', 'sku' => 'SKU020', 'harga_satuan' => 12000],
+            ['nama_barang' => 'Pringles Original (110g)', 'sku' => 'SKU021', 'harga_satuan' => 25000],
+            ['nama_barang' => 'KitKat 4 Finger', 'sku' => 'SKU022', 'harga_satuan' => 10000],
+            ['nama_barang' => 'Pop Mie Ayam Bawang', 'sku' => 'SKU023', 'harga_satuan' => 7500],
+            ['nama_barang' => 'Sari Roti Coklat', 'sku' => 'SKU024', 'harga_satuan' => 6000],
+            ['nama_barang' => 'Good Time Choco Chips (90g)', 'sku' => 'SKU025', 'harga_satuan' => 9500],
+            ['nama_barang' => 'Nutrisari Jeruk Nipis', 'sku' => 'SKU026', 'harga_satuan' => 2000],
+            ['nama_barang' => 'Milkuat Botol (125ml)', 'sku' => 'SKU027', 'harga_satuan' => 4000],
+            ['nama_barang' => 'Tango Wafer Coklat (120g)', 'sku' => 'SKU028', 'harga_satuan' => 11000],
+            ['nama_barang' => 'Sedaap Cup Pop', 'sku' => 'SKU029', 'harga_satuan' => 8000],
+            ['nama_barang' => 'Magnum Classic', 'sku' => 'SKU030', 'harga_satuan' => 15000],
         ]);
 
-        barangs::create(['namabarang' => 'Mie Sedap', 'hargasatuan' => '3500']);
-        Barangs::create(['namabarang' => 'Indomie Goreng', 'hargasatuan' => '3500']);
-        Barangs::create(['namabarang' => 'Mie Sedap Kari Ayam', 'hargasatuan' => '3500']);
-        Barangs::create(['namabarang' => 'Supermie Soto', 'hargasatuan' => '3600']);
-        Barangs::create(['namabarang' => 'Teh Pucuk Harum (350ml)', 'hargasatuan' => '5000']);
-        Barangs::create(['namabarang' => 'Aqua Botol (600ml)', 'hargasatuan' => '4000']);
-        Barangs::create(['namabarang' => 'Coca-Cola (330ml)', 'hargasatuan' => '7500']);
-        Barangs::create(['namabarang' => 'Chitato (68g)', 'hargasatuan' => '13000']);
-        Barangs::create(['namabarang' => 'Taro Net (50g)', 'hargasatuan' => '8000']);
-        Barangs::create(['namabarang' => 'SilverQueen (62g)', 'hargasatuan' => '15000']);
-        Barangs::create(['namabarang' => 'Beng-Beng', 'hargasatuan' => '2500']);
-        Barangs::create(['namabarang' => 'Susu Ultra (250ml)', 'hargasatuan' => '6000']);
-        Barangs::create(['namabarang' => 'Good Day Cappuccino (200ml)', 'hargasatuan' => '4500']);
-        Barangs::create(['namabarang' => 'Oreo (137g)', 'hargasatuan' => '12000']);
-        Barangs::create(['namabarang' => 'Fanta (1L)', 'hargasatuan' => '12000']);
-        Barangs::create(['namabarang' => 'Yupi Gummy Bears (45g)', 'hargasatuan' => '7000']);
-        Barangs::create(['namabarang' => 'Chocolatos', 'hargasatuan' => '2000']);
-        Barangs::create(['namabarang' => 'Fruit Tea (350ml)', 'hargasatuan' => '5000']);
-        Barangs::create(['namabarang' => 'Sprite (390ml)', 'hargasatuan' => '6500']);
-        Barangs::create(['namabarang' => 'Lays BBQ (68g)', 'hargasatuan' => '12000']);
-        Barangs::create(['namabarang' => 'Pringles Original (110g)', 'hargasatuan' => '25000']);
-        Barangs::create(['namabarang' => 'KitKat 4 Finger', 'hargasatuan' => '10000']);
-        Barangs::create(['namabarang' => 'Pop Mie Ayam Bawang', 'hargasatuan' => '7500']);
-        Barangs::create(['namabarang' => 'Sari Roti Coklat', 'hargasatuan' => '6000']);
-        Barangs::create(['namabarang' => 'Good Time Choco Chips (90g)', 'hargasatuan' => '9500']);
-        Barangs::create(['namabarang' => 'Nutrisari Jeruk Nipis', 'hargasatuan' => '2000']);
-        Barangs::create(['namabarang' => 'Milkuat Botol (125ml)', 'hargasatuan' => '4000']);
-        Barangs::create(['namabarang' => 'Tango Wafer Coklat (120g)', 'hargasatuan' => '11000']);
-        Barangs::create(['namabarang' => 'Sedaap Cup Pop', 'hargasatuan' => '8000']);
-        Barangs::create(['namabarang' => 'Magnum Classic', 'hargasatuan' => '15000']);
-        Barangs::create(['namabarang' => 'Cornetto Chocolate', 'hargasatuan' => '12000']);
-        Barangs::create(['namabarang' => 'Yakult (5 botol)', 'hargasatuan' => '15000']);
-        Barangs::create(['namabarang' => 'Richeese Nabati', 'hargasatuan' => '8000']);
-        Barangs::create(['namabarang' => 'Energen Coklat', 'hargasatuan' => '3000']);
-        Barangs::create(['namabarang' => 'Indo Milk (190ml)', 'hargasatuan' => '4500']);
-        Barangs::create(['namabarang' => 'Torabika Cappuccino', 'hargasatuan' => '6000']);
-
+        DB::table('barangs')->insert([
+            ['namabarang' => 'Indomie', 'sku' => 'SKU031' ,'hargasatuan' =>  '3500'],
+        ]);
     }
 }
