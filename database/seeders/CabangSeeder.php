@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\cabang; 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Cabang;
 
 class CabangSeeder extends Seeder
 {
@@ -13,10 +13,30 @@ class CabangSeeder extends Seeder
      */
     public function run(): void
     {
-        Book::create([
-            "namacabang" => "IndoApril Cianjur",
-            "alamatcabang" => "Cianjur payonanan",
-            "kota" => "Cianjur"
+        Cabang::create([
+            'name'=> 'IndoJanuari',
+            'alamat'=> 'jln Kayangan Gunung Kembar',
+            'kota'=> 'Cianjur'
+        ]);
+        Cabang::create([
+            'name'=> 'IndoFebuari',
+            'alamat'=> 'jln Bikini Bottom',
+            'kota'=> 'Cianjur'
+        ]);
+        Cabang::create([
+            'name'=> 'IndoMaret',
+            'alamat'=> 'jln Cainengah Hilir',
+            'kota'=> 'Cianjur'
+        ]);
+        Cabang::create([
+            'name'=> 'IndoApril',
+            'alamat'=> 'jln Ahlan Wasahlan',
+            'kota'=> 'Cianjur'
+        ]);
+        Cabang::create([
+            'name'=> 'IndoMei',
+            'alamat'=> 'jln pangeran popowi ',
+            'kota'=> 'Cianjur'
         ]);
     }
 }

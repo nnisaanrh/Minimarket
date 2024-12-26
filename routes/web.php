@@ -17,19 +17,31 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/cabang', [CabangController::class, 'index'])->name('cabang');
+
 });
 
-Route::group(['middleware' => ['role:pustakawan']], function () {
-    Route::get('/cabang/create', [CabangController::class, 'create'])->name('cabang.create');
-    Route::get('/cabang/edit/{id}', [CabangController::class, 'edit'])->name('cabang.edit');
-    Route::post('/cabang/store', [CabangController::class, 'store'])->name('cabang.store');
-    Route::patch('/cabang/{id}/update', [CabangController::class, 'update'])->name('cabang.update');
-    Route::delete('/cabang/{id}/delete', [CabangController::class, 'destroy'])->name('cabang.destroy');
 
-    Route::get('/cabang/print', [CabangController::class, 'print'])->name('cabang.print');
-    Route::get('/cabang/export', [CabangController::class, 'export'])->name('cabang.export');
-    Route::post('/cabang/import', [CabangController::class, 'import'])->name('cabang.import');
-});
+// Rute untuk menampilkan daftar cabang (Index)
+Route::get('/cabang', [CabangController::class, 'index'])->name('cabang.index');
+
+// Rute untuk menampilkan form tambah cabang (Create)
+Route::get('/cabang/create', [CabangController::class, 'create'])->name('cabang.create');
+
+// Rute untuk menyimpan cabang baru (Store)
+Route::post('/cabang', [CabangController::class, 'store'])->name('cabang.store');
+
+// Rute untuk menampilkan detail cabang (Show) - Optional, bisa ditambahkan sesuai kebutuhan
+Route::get('/cabang/{cabang}', [CabangController::class, 'show'])->name('cabang.show');
+
+// Rute untuk menampilkan form edit cabang (Edit)
+Route::get('/cabang/{cabang}/edit', [CabangController::class, 'edit'])->name('cabang.edit');
+
+// Rute untuk memperbarui cabang (Update)
+Route::put('/cabang/{cabang}', [CabangController::class, 'update'])->name('cabang.update');
+
+// Rute untuk menghapus cabang (Destroy)
+Route::delete('/cabang/{cabang}', [CabangController::class, 'destroy'])->name('cabang.destroy');
+
+
 
 require __DIR__.'/auth.php';

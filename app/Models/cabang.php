@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use HasFactory;
 
-class cabang extends Model
+class Cabang extends Model
 {
+
+
     protected $table = 'cabangs';
 
     protected $fillable = [
-        'mamacabang',
-        'alamatcabang',
+        'name',
+        'alamat',
         'kota'
     ];
-
 }

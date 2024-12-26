@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cabang;
+use App\Models\Cabang;
 use Illuminate\Http\Request;
 
 class CabangController extends Controller
@@ -12,8 +12,8 @@ class CabangController extends Controller
      */
     public function index()
     {
-        $data['cabangs'] -> all();
-        return view('cabangs.index', $data);
+        $cabangs = Cabang::all(); // Mengambil semua data cabang
+        return view('cabang.index', compact('cabangs')); // Mengirim data ke view
     }
 
     /**
@@ -21,7 +21,7 @@ class CabangController extends Controller
      */
     public function create()
     {
-        return view('cabangs.create');
+        return view(cabang.create);
     }
 
     /**
@@ -30,42 +30,49 @@ class CabangController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "namacabang" => 'required|max:50',
-            "alamatcabang" => 'required|max:100',
-            "kota" => 'required|max:50'
+            'name'=> 'required|max:100',
+            'alamat'=> 'required|max:255',
+            'kota'=> 'required|max:50'
         ]);
-        cabangs::create($validated);
 
-        $notification = array( 
-            'message' => 'Cabang berhasil dihapus', 
-            'alert-type' => 'success' 
-        );
-        if($request->save == true) return redirect()->route('cabang')->with($notification);
-        else return redirect()->route('cabang.create')->with($notification);
+        Cabang::create($validated);
+
+        return redirect()->route('cabang.index')->with('success','data berhasil di tambah');
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Cabang $cabang, string $id)
     {
-        $data['cabans'] = cabang::FindOrFail($id);
-        return view('cabangs.edit');
+        $cabang = Cabang::finOrfail($id);
+        return view(cabang.edit, compact ($cabang));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id, cabang $cabang)
+    public function update(Request $request, Cabang $cabang)
     {
-        //
+        $cabang = Cabang::finOrfail($id);
+        $validated = $request->validate([
+            'name'=> 'required|max:100',
+            'alamat'=> 'required|max:255',
+            'kota'=> 'required|max:50'
+        ]);
+
+        Cabang::update($validated);
+        
+        return redirect()->route('cabang.index')->with('success','data berhasil di update');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(cabang $cabang)
+    public function destroy(Cabang $cabang)
     {
-        //
+        $cabang = Cabang::finOrfail($id);
+        Cabang::delete();
     }
 }
