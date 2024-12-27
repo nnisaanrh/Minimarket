@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_barang', 50);
             $table->string('sku', 50)->unique();
-            $table->decimal('harga_satuan',10);
+            $table->decimal('harga_satuan', 15, 2);
             $table->timestamps();
         });
     }

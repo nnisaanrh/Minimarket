@@ -21,7 +21,7 @@ class CabangController extends Controller
      */
     public function create()
     {
-        return view(cabang.create);
+        return view('cabang.create');
     }
 
     /**
@@ -46,8 +46,10 @@ class CabangController extends Controller
      */
     public function edit(Cabang $cabang, string $id)
     {
-        $cabang = Cabang::finOrfail($id);
-        return view(cabang.edit, compact ($cabang));
+        $cabang = Cabang::findOrFail($id);
+
+        return view('cabang.edit', compact('cabang'));
+
     }
 
     /**
@@ -55,24 +57,27 @@ class CabangController extends Controller
      */
     public function update(Request $request, Cabang $cabang)
     {
-        $cabang = Cabang::finOrfail($id);
-        $validated = $request->validate([
-            'name'=> 'required|max:100',
-            'alamat'=> 'required|max:255',
-            'kota'=> 'required|max:50'
-        ]);
+        $cabang = Cabang::findOrFail($id);
 
-        Cabang::update($validated);
-        
-        return redirect()->route('cabang.index')->with('success','data berhasil di update');
-    }
+       
+    $validated = $request->validate([
+        'name' => 'required|max:100',
+        'alamat' => 'required|max:255',
+        'kota' => 'required|max:50'
+    ]);
+
+    $cabang->update($validated);
+
+    return redirect()->route('cabang.index')->with('success', 'Data berhasil di update');
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Cabang $cabang)
     {
-        $cabang = Cabang::finOrfail($id);
+        $cabang = Cabang::findOrFail($id);
+
         Cabang::delete();
     }
 }
