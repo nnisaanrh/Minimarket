@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Barang;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\fascade\DB;
+
 
 class BarangSeeder extends Seeder
 {
@@ -47,10 +47,6 @@ class BarangSeeder extends Seeder
             ['nama_barang' => 'Tango Wafer Coklat (120g)', 'sku' => 'SKU028', 'harga_satuan' => 11000],
             ['nama_barang' => 'Sedaap Cup Pop', 'sku' => 'SKU029', 'harga_satuan' => 8000],
             ['nama_barang' => 'Magnum Classic', 'sku' => 'SKU030', 'harga_satuan' => 15000],
-        ]);
-
-        DB::table('barangs')->insert([
-            ['namabarang' => 'Indomie', 'sku' => 'SKU031' ,'hargasatuan' =>  '3500'],
         ]);
     }
 }

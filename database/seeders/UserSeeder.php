@@ -8,13 +8,11 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-    /**
+     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-
-        //edit contoh 
         User::factory()->create([
             'name' => 'mahasiswa',
             'email' => 'mahasiswa@unsur.ac.id',
