@@ -11,6 +11,7 @@ class TransaksiDetail extends Model
     protected $table = 'transaksi_details';
 
     protected $fillable = [
+        'barang_id',
         'transaksi_id',
         'produk_id',
         'jumlah_barang',
@@ -18,6 +19,13 @@ class TransaksiDetail extends Model
         'harga_total'
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($transaksiDetail) {
+            // Menghitung harga total berdasarkan jumlah barang dan harga satuan
+            $transaksiDetail->harga_total = $transaksiDetail->jumlah_barang * $transaksiDetail->harga;
+        });
+    }
 
     public function transaksi(): BelongsTo
     {

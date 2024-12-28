@@ -28,6 +28,12 @@
                             {{ __('Cabang') }}
                         </x-nav-link>
                 @endhasrole
+
+                @hasrole('kasir')
+                        <x-nav-link :href="route('transaksi.index')" :active="request()->routeIs('transaksi.index')">
+                            {{ __('transaksi') }}
+                        </x-nav-link>
+                @endhasrole
             </div>
 
             <!-- Settings Dropdown -->

@@ -16,4 +16,10 @@ class Cabang extends Model
         'alamat',
         'kota'
     ];
+
+    public function users()
+{
+    return $this->hasMany(User::class);
+}
+
 }

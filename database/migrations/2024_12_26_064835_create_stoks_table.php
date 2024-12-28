@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('cabang_id')->unsigned();
             $table->bigInteger('barang_id')->unsigned();
-            $table->decimal('jumlah', 15, 2);
+            $table->integer('jumlah');
             $table->timestamps();
 
             $table->foreign('cabang_id')->references('id')->on('cabangs')->onDelete('cascade')->onUpdate('cascade');
