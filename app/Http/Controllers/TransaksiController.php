@@ -58,12 +58,29 @@ class TransaksiController extends Controller
         'details.*.harga_total' => 'required|numeric|min:0',
     ]);
 
+    $cabangId = auth()->user()->cabang_id;
+
+    // Validasi stok barang
+    $stokData = \App\Models\Stok::whereIn('barang_id', collect($request->details)->pluck('barang_id'))
+    ->where('cabang_id', $cabangId)
+    ->get()
+    ->keyBy('barang_id');
+
+    foreach ($request->details as $detail) {
+    $stok = $stokData->get($detail['barang_id']);
+    if (!$stok || $stok->jumlah < $detail['jumlah_barang']) {
+        return redirect()->back()->withErrors([
+            'error' => "Stok barang dengan ID {$detail['barang_id']} tidak mencukupi."
+            ]);
+        }
+    }
+
     // Membuat transaksi baru
     $transaksi = Transaksi::create([
-        'tanggal_penjualan' => now(),  // Mengambil waktu saat ini
+        'tanggal_penjualan' => now(),
         'user_id' => auth()->id(),
-        'cabang_id' => auth()->user()->cabang_id,  // Menggunakan cabang_id pengguna yang login
-        'total' => 0,  // Total akan dihitung nanti
+        'cabang_id' => $cabangId,
+        'total' => 0,
     ]);
 
     // Menyimpan detail transaksi dan menghitung total
@@ -72,11 +89,17 @@ class TransaksiController extends Controller
     foreach ($request->details as $detail) {
         // Menyimpan detail transaksi
         $transaksiDetail = $transaksi->transaksiDetails()->create([
-            'barang_id' => $detail['barang_id'],  // Pastikan barang_id ada
+            'barang_id' => $detail['barang_id'],
             'jumlah_barang' => $detail['jumlah_barang'],
             'harga' => $detail['harga'],
             'harga_total' => $detail['harga_total'],
         ]);
+
+        // Mengurangi stok barang
+        $stok = \App\Models\Stok::where('barang_id', $detail['barang_id'])
+            ->where('cabang_id', $cabangId)
+            ->first();
+        $stok->decrement('jumlah', $detail['jumlah_barang']);
 
         // Menambahkan harga_total untuk menghitung total transaksi
         $total += $detail['harga_total'];
@@ -87,7 +110,6 @@ class TransaksiController extends Controller
 
     return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dibuat!');
 }
-
 
 
 

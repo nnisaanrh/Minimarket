@@ -13,4 +13,9 @@ class Barang extends Model
             'sku',
             'harga_satuan'
     ];
+
+    public function stok()
+{
+    return $this->hasMany(Stok::class);
+}
 }

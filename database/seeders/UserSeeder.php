@@ -15,25 +15,25 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'name' => 'manager',
-        'email' => 'manager@gmail.com',
-        'password' => 'manager_password',
-        'role' => 'manager',
-        'cabang_id' => 1,  // Pastikan ID cabang 1 ada di tabel cabangs
-        'permissions' => [
-            'view_cabang',
-            'view_barang',
-            'view_stok',
-            'view_transaksi',
-            'view_transaksi_detail',
-            'view_stok_movements',
+                'email' => 'manager@gmail.com',
+                'password' => 'manager_password',
+                'cabang_id' => 1, // Pastikan ID cabang 1 ada di tabel cabangs
+                'role' => 'manager',
+                'permissions' => [
+                    'view_cabang',
+                    'view_barang',
+                    'view_stok',
+                    'view_transaksi',
+                    'view_transaksi_detail',
+                    'view_stok_movements',
                 ],
             ],
             [
                 'name' => 'supervisor',
                 'email' => 'supervisor@gmail.com',
-                'password' => 'supervisor_password', // Password manual
+                'password' => 'supervisor_password',
+                'cabang_id' => 1,
                 'role' => 'supervisor',
-                'cabang_id' => 1, // Cabang 1
                 'permissions' => [
                     'view_barang',
                     'view_stok',
@@ -45,47 +45,45 @@ class UserSeeder extends Seeder
             [
                 'name' => 'kasir',
                 'email' => 'kasir@gmail.com',
-                'password' => 'kasir_password', // Password manual
+                'password' => 'kasir_password',
                 'role' => 'kasir',
+                'cabang_id' => null, // Tidak ada cabang yang terkait
                 'permissions' => [
                     'view_produk',
                     'edit_transaksi',
                     'edit_transaksi_detail',
                 ],
             ],
-
             [
                 'name' => 'Kasir Cabang 1',
                 'email' => 'kasir1@gmail.com',
                 'password' => 'kasircabang1',
+                'cabang_id' => 1,
                 'role' => 'kasir',
-                'cabang_id' => 1, // Cabang 1
                 'permissions' => [
                     'view_produk',
                     'edit_transaksi',
                     'edit_transaksi_detail',
                 ],
             ],
-            
             [
                 'name' => 'Kasir Cabang 2',
                 'email' => 'kasir2@gmail.com',
                 'password' => 'kasircabang2',
+                'cabang_id' => 2,
                 'role' => 'kasir',
-                'cabang_id' => 2, // Cabang 2
                 'permissions' => [
                     'view_produk',
                     'edit_transaksi',
                     'edit_transaksi_detail',
                 ],
             ],
-
             [
                 'name' => 'gudang',
                 'email' => 'gudang@gmail.com',
-                'password' => 'gudang_password', // Password manual
+                'password' => 'gudang_password',
                 'role' => 'gudang',
-                'cabang_id' => 1, // Cabang 1
+                'cabang_id' => 1,
                 'permissions' => [
                     'view_barang',
                     'view_stok',
@@ -95,8 +93,9 @@ class UserSeeder extends Seeder
             [
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
-                'password' => 'admin_password', // Password manual
+                'password' => 'admin_password',
                 'role' => 'admin',
+                'cabang_id' => null, // Admin tidak terkait dengan cabang tertentu
                 'permissions' => [
                     'edit_user',
                     'edit_cabang',
@@ -119,7 +118,8 @@ class UserSeeder extends Seeder
             $user = User::create([
                 'name' => $userData['name'],
                 'email' => $userData['email'],
-                'password' => bcrypt($userData['password']), // Mengenkripsi password manual
+                'password' => bcrypt($userData['password']), // Mengenkripsi password
+                'cabang_id' => $userData['cabang_id'], // Isi null jika tidak didefinisikan
             ]);
 
             $user->assignRole($userData['role']);

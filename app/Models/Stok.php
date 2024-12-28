@@ -13,7 +13,7 @@ class Stok extends Model
         'jumlah',
     ];
 
-
+    public $timestamps = true;
     public function cabang(): BelongsTo
     {
         return $this->belongsTo(Cabang::class);
@@ -24,4 +24,5 @@ class Stok extends Model
     {
         return $this->belongsTo(Barang::class);
     }
+
 }
