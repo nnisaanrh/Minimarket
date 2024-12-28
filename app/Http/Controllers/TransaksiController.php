@@ -66,14 +66,14 @@ class TransaksiController extends Controller
     ->get()
     ->keyBy('barang_id');
 
-    foreach ($request->details as $detail) {
+foreach ($request->details as $detail) {
     $stok = $stokData->get($detail['barang_id']);
     if (!$stok || $stok->jumlah < $detail['jumlah_barang']) {
         return redirect()->back()->withErrors([
             'error' => "Stok barang dengan ID {$detail['barang_id']} tidak mencukupi."
-            ]);
-        }
+        ]);
     }
+}
 
     // Membuat transaksi baru
     $transaksi = Transaksi::create([
