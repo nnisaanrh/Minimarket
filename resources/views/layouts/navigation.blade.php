@@ -16,11 +16,18 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('cabang.index')" :active="request()->routeIs('cabang.index')">
-                        {{ __('Daftar Cabang') }}
-                       </x-nav-link>
-                 </div>
+                
+                @hasrole('admin')
+                        <x-nav-link :href="route('cabang.index')" :active="request()->routeIs('cabang.index')">
+                            {{ __('Cabang') }}
+                        </x-nav-link>
+                @endhasrole
+
+                @hasrole('manager')
+                        <x-nav-link :href="route('cabang.view')" :active="request()->routeIs('cabang.view')">
+                            {{ __('Cabang') }}
+                        </x-nav-link>
+                @endhasrole
             </div>
 
             <!-- Settings Dropdown -->
