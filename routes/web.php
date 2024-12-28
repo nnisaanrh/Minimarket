@@ -20,46 +20,52 @@ Route::middleware('auth')->group(function () {
 
 
 });
-
+//ADMIN
+//-----------------------------------------------------------------------------------------------------------
 Route::group(['middleware' => ['role:admin']], function (){
-// Rute untuk menampilkan daftar cabang (Index)
-Route::get('/cabang', [CabangController::class, 'index'])->name('cabang.index');
-// Rute untuk menampilkan form tambah cabang (Create)
-Route::get('/cabang/create', [CabangController::class, 'create'])->name('cabang.create');
-// Rute untuk menyimpan cabang baru (Store)
-Route::post('/cabang', [CabangController::class, 'store'])->name('cabang.store');
-// Rute untuk menampilkan detail cabang (Show) - Optional, bisa ditambahkan sesuai kebutuhan
-Route::get('/cabang/{cabang}', [CabangController::class, 'show'])->name('cabang.show');
-// Rute untuk menampilkan form edit cabang (Edit)
-Route::get('/cabang/{cabang}/edit', [CabangController::class, 'edit'])->name('cabang.edit');
-// Rute untuk memperbarui cabang (Update)
-Route::put('/cabang/{cabang}', [CabangController::class, 'update'])->name('cabang.update');
-// Rute untuk menghapus cabang (Destroy)
-Route::delete('/cabang/{cabang}', [CabangController::class, 'destroy'])->name('cabang.destroy');
 
-//Transaksi
+// Cabang admin
+//-----------------------------------------------------------------------------------------------------------
+Route::get('/cabang', [CabangController::class, 'index'])->name('cabang.index');
+Route::get('/cabang/create', [CabangController::class, 'create'])->name('cabang.create');
+Route::post('/cabang', [CabangController::class, 'store'])->name('cabang.store');
+Route::get('/cabang/{cabang}', [CabangController::class, 'show'])->name('cabang.show');
+Route::get('/cabang/{cabang}/edit', [CabangController::class, 'edit'])->name('cabang.edit');
+Route::put('/cabang/{cabang}', [CabangController::class, 'update'])->name('cabang.update');
+Route::delete('/cabang/{cabang}', [CabangController::class, 'destroy'])->name('cabang.destroy');
+//-----------------------------------------------------------------------------------------------------------
+
+//Transaksi admin
+//-----------------------------------------------------------------------------------------------------------
 Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaksi.index');
 Route::get('/transaksi/show', [TransaksiController::class, 'show'])->name('transaksi.show');
 Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
 Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
 
-});
+//------------------------------------------------------------------------------------------------------------
 
+
+
+});
+//-----------------------------------------------------------------------------------------------------------
+
+//MANAGER
+//-----------------------------------------------------------------------------------------------------------
 Route::group(['middleware' => ['role:manager']], function (){
     // Rute untuk menampilkan daftar cabang (Index)
     Route::get('/cabang/view', [CabangController::class, 'view'])->name('cabang.view');
     });
 
+//-----------------------------------------------------------------------------------------------------------
 
 
+//TRANSAKSI
+//-----------------------------------------------------------------------------------------------------------
     Route::group(['middleware' => ['role:kasir']], function () {
-
-
-        
-            Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaksi.index');
-            Route::get('/transaksi/show', [TransaksiController::class, 'show'])->name('transaksi.show');
-            Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
-            Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+        Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaksi.index');
+        Route::get('/transaksi/show', [TransaksiController::class, 'show'])->name('transaksi.show');
+        Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
+        Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
 
         
     
@@ -67,6 +73,7 @@ Route::group(['middleware' => ['role:manager']], function (){
         // Route::get('/transaksi/export', [BookController::class, 'export'])->name('transaksi.export');
         // Route::post('/transaksi/import', [BookController::class, 'import'])->name('book.import');
     });
+//-----------------------------------------------------------------------------------------------------------
 
     
 require __DIR__.'/auth.php';
