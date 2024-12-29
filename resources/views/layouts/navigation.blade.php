@@ -24,6 +24,12 @@
                         <x-nav-link :href="route('barang.index')" :active="request()->routeIs('barang.index')">
                             {{ __('Barang') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('stock_movements.index')" :active="request()->routeIs('stock_movements.index')">
+                            {{ __('Pergerakan Barang') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('transaksi.index')" :active="request()->routeIs('transaksi.index')">
+                            {{ __('transaksi') }}
+                        </x-nav-link>
                 @endhasrole 
 
                 @hasrole('manager')

@@ -2,6 +2,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,17 @@ Route::put('/barang/{barang}', [BarangController::class, 'update'])->name('baran
 Route::delete('/barang/{barang}', [BarangController::class, 'destroy'])->name('.destroy');
 //-----------------------------------------------------------------------------------------------------------
 
+// stock_movements admin
+//-----------------------------------------------------------------------------------------------------------
+Route::get('/StockMovement', [StockMovementController::class, 'index'])->name('stock_movements.index');
+Route::get('/StockMovement/create', [StockMovementController::class, 'create'])->name('stock_movements.create');
+Route::post('/StockMovement', [StockMovementController::class, 'store'])->name('stock_movements.store');
+// Route::get('/StockMovement/{StockMovement}', [StockMovementController::class, 'show'])->name('StockMovement.show');
+Route::get('/StockMovement/{StockMovement}/edit', [StockMovementController::class, 'edit'])->name('stock_movements.edit');
+Route::put('/StockMovement/{StockMovement}', [StockMovementController::class, 'update'])->name('stock_movements.update');
+Route::delete('/StockMovement/{StockMovement}', [StockMovementController::class, 'destroy'])->name('.destroy');
+//-----------------------------------------------------------------------------------------------------------
+
 //Transaksi admin
 //-----------------------------------------------------------------------------------------------------------
 Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaksi.index');
@@ -72,11 +84,11 @@ Route::group(['middleware' => ['role:manager']], function (){
 
 //TRANSAKSI
 //-----------------------------------------------------------------------------------------------------------
-    Route::group(['middleware' => ['role:kasir']], function () {
-        Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaksi.index');
-        Route::get('/transaksi/show', [TransaksiController::class, 'show'])->name('transaksi.show');
-        Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
-        Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::group(['middleware' => ['role:kasir','role:admin']], function () {
+    Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/show', [TransaksiController::class, 'show'])->name('transaksi.show');
+    Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
 
         
     
