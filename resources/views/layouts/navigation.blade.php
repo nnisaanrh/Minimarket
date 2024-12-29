@@ -9,19 +9,22 @@
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                
+
+               
                 @hasrole('admin')
                         <x-nav-link :href="route('cabang.index')" :active="request()->routeIs('cabang.index')">
                             {{ __('Cabang') }}
                         </x-nav-link>
-                @endhasrole
+                        <x-nav-link :href="route('barang.index')" :active="request()->routeIs('barang.index')">
+                            {{ __('Barang') }}
+                        </x-nav-link>
+                @endhasrole 
 
                 @hasrole('manager')
                         <x-nav-link :href="route('cabang.view')" :active="request()->routeIs('cabang.view')">

@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\TransaksiController;
@@ -35,6 +35,17 @@ Route::put('/cabang/{cabang}', [CabangController::class, 'update'])->name('caban
 Route::delete('/cabang/{cabang}', [CabangController::class, 'destroy'])->name('cabang.destroy');
 //-----------------------------------------------------------------------------------------------------------
 
+// barang admin
+//-----------------------------------------------------------------------------------------------------------
+Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
+Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+// Route::get('/barang/{barang}', [BarangController::class, 'show'])->name('barang.show');
+Route::get('/barang/{barang}/edit', [BarangController::class, 'edit'])->name('barang.edit');
+Route::put('/barang/{barang}', [BarangController::class, 'update'])->name('barang.update');
+Route::delete('/barang/{barang}', [BarangController::class, 'destroy'])->name('.destroy');
+//-----------------------------------------------------------------------------------------------------------
+
 //Transaksi admin
 //-----------------------------------------------------------------------------------------------------------
 Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaksi.index');
@@ -53,7 +64,7 @@ Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('tr
 //-----------------------------------------------------------------------------------------------------------
 Route::group(['middleware' => ['role:manager']], function (){
     // Rute untuk menampilkan daftar cabang (Index)
-    Route::get('/cabang/view', [CabangController::class, 'view'])->name('cabang.view');
+    Route::get('/cabang/view', [BarangController::class, 'view'])->name('cabang.view');
     });
 
 //-----------------------------------------------------------------------------------------------------------

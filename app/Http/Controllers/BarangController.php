@@ -59,11 +59,20 @@ class BarangController extends Controller
         return redirect()->route('barang.index')->with('success', 'Data berhasil diupdate.');
     }
 
-    // public function destroy(Cabang $cabang)
+    public function destroy(Barang $barang)
+    {
+        $barang->delete();
+    
+        return redirect()->route('barang.index')->with('success', 'Data berhasil dihapus');
+    }
+
+    // public function destroy($id)
     // {
-    //     $cabang->delete();
-    
-    //     return redirect()->route('cabang.index')->with('success', 'Data berhasil dihapus');
+    //     $barang = Barang::findOrFail($id); // Temukan data berdasarkan ID
+    //     $barang->delete(); // Hapus data
+
+    //     return redirect()->route('barang.index')->with('success', 'Data berhasil dihapus');
     // }
-    
 }
+    
+
