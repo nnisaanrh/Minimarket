@@ -55,4 +55,11 @@ class User extends Authenticatable
     }
     
     
+    public function stockMovements()
+{
+    return $this->hasMany(StockMovement::class);
+}
+
+
+
 }

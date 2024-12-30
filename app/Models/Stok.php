@@ -10,7 +10,7 @@ class Stok extends Model
     protected $fillable = [
         'cabang_id',
         'barang_id',
-        'jumlah',
+        'quantity',
     ];
 
     public $timestamps = true;

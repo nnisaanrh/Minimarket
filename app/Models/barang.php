@@ -18,4 +18,17 @@ class Barang extends Model
 {
     return $this->hasMany(Stok::class);
 }
+
+public function stockMovements()
+{
+    return $this->hasMany(StockMovement::class);
+}
+
+
+public function stoks()
+{
+    return $this->hasMany(Stok::class);
+}
+
+
 }

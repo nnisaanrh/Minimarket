@@ -22,4 +22,17 @@ class Cabang extends Model
     return $this->hasMany(User::class);
 }
 
+
+public function stockMovements()
+{
+    return $this->hasMany(StockMovement::class);
+}
+
+public function stoks()
+{
+    return $this->hasMany(Stok::class);
+}
+
+
+
 }

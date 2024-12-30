@@ -39,7 +39,7 @@ class StokController extends Controller
         $validated = $request->validate([
             'cabang_id'=> 'required',
             'barang_id'=> 'required',
-            'jumlah'=> 'required'
+            'quantity'=> 'required'
         ]);
 
         // Membuat data baru di tabel stok
@@ -71,7 +71,7 @@ class StokController extends Controller
         $validated = $request->validate([
             'cabang_id'=> 'required',
             'barang_id'=> 'required',
-            'jumlah'=> 'required'
+            'quantity'=> 'required'
         ]);
 
         // Melakukan update data stok

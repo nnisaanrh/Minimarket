@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 class BarangController extends Controller
 {
     public function index()
-    {
-        $barang = Barang::all(); // Mengambil semua data barang
-        return view('barang.index', compact('barang')); // Mengirim data ke view
-    }
+{
+    $barangs = Barang::all(); // Mengambil semua data barang
+    return view('barang.index', compact('barangs'));
+}
+
 
     public function create()
     {
@@ -59,11 +60,12 @@ class BarangController extends Controller
         return redirect()->route('barang.index')->with('success', 'Data berhasil diupdate.');
     }
 
-    public function destroy(Barang $barang)
+    public function destroy($id)
     {
+        $barang = Barang::findOrFail($id);
         $barang->delete();
-    
-        return redirect()->route('barang.index')->with('success', 'Data berhasil dihapus');
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil dihapus!');
     }
 
     // public function destroy($id)

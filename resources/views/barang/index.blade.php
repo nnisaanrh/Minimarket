@@ -33,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($barang as $index => $item)
+                            @forelse($barangs as $index => $item)
                                 <tr class="{{ $index % 2 === 0 ? 'bg-gray-100 dark:bg-gray-800' : 'bg-white dark:bg-gray-700' }}">
                                     <td class="px-4 py-2 border text-center">{{ $index + 1 }}</td>
                                     <td class="px-4 py-2 border">{{ $item->nama_barang }}</td>
@@ -41,11 +41,11 @@
                                     <td class="px-4 py-2 border">{{ number_format($item->harga_satuan, 0, ',', '.') }}</td>
                                     <td class="px-4 py-2 border text-center">
                                         <a href="{{ route('barang.edit', $item->id) }}" class="px-2 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition inline-block">Edit</a>
-                                        {{-- <form action="{{ route('barang.destroy', $item->id) }}" method="POST" class="inline-block">
+                                        <form action="{{ route('barang.destroy', $item->id) }}" method="POST" class="inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="px-2 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition" onclick="return confirm('Yakin ingin menghapus barang ini?')">Hapus</button>
-                                        </form> --}}
+                                        </form>
                                     </td>
                                 </tr>
                             @empty

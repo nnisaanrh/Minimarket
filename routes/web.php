@@ -44,7 +44,7 @@ Route::post('/barang', [BarangController::class, 'store'])->name('barang.store')
 // Route::get('/barang/{barang}', [BarangController::class, 'show'])->name('barang.show');
 Route::get('/barang/{barang}/edit', [BarangController::class, 'edit'])->name('barang.edit');
 Route::put('/barang/{barang}', [BarangController::class, 'update'])->name('barang.update');
-Route::delete('/barang/{barang}', [BarangController::class, 'destroy'])->name('.destroy');
+Route::delete('/barang/{barang}', [BarangController::class, 'destroy'])->name('barang.destroy');
 //-----------------------------------------------------------------------------------------------------------
 
 // stock_movements admin
@@ -84,11 +84,12 @@ Route::group(['middleware' => ['role:manager']], function (){
 
 //TRANSAKSI
 //-----------------------------------------------------------------------------------------------------------
-    Route::group(['middleware' => ['role:kasir','role:admin']], function () {
+Route::group(['middleware' => ['role:kasir|admin']], function () {
     Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('/transaksi/show', [TransaksiController::class, 'show'])->name('transaksi.show');
     Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+
 
         
     
