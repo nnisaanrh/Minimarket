@@ -68,7 +68,7 @@ class TransaksiController extends Controller
 
 foreach ($request->details as $detail) {
     $stok = $stokData->get($detail['barang_id']);
-    if (!$stok || $stok->jumlah < $detail['jumlah_barang']) {
+    if (!$stok || $stok->quantity < $detail['jumlah_barang']) {
         return redirect()->back()->withErrors([
             'error' => "Stok barang dengan ID {$detail['barang_id']} tidak mencukupi."
         ]);
@@ -99,7 +99,7 @@ foreach ($request->details as $detail) {
         $stok = \App\Models\Stok::where('barang_id', $detail['barang_id'])
             ->where('cabang_id', $cabangId)
             ->first();
-        $stok->decrement('jumlah', $detail['jumlah_barang']);
+        $stok->decrement('quantity', $detail['jumlah_barang']);
 
         // Menambahkan harga_total untuk menghitung total transaksi
         $total += $detail['harga_total'];

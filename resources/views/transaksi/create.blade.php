@@ -4,6 +4,16 @@
         <form action="{{ route('transaksi.store') }}" method="POST" class="space-y-6">
             @csrf
 
+            @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
             <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Detail Transaksi</h3>
             <div id="details" class="space-y-4">
                 <div class="detail-row flex flex-wrap items-center gap-4">
@@ -67,7 +77,7 @@
                 </div>
 
                 <div class="w-full md:w-1/6">
-                    <label for="jumlah_barang" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Jumlah:</label>
+                    <label for="jumlah_barang" class="block text-sm font-medium text-gray-700 dark:text-gray-300">quantity:</label>
                     <input type="number" name="details[${detailIndex}][jumlah_barang]" class="w-full p-2 mt-1 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300" required oninput="updateHarga(${detailIndex})">
                 </div>
 

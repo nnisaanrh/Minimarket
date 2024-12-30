@@ -82,7 +82,7 @@ class StockMovementController extends Controller
             } else {
                 return redirect()->back()->with('error', 'Stok tidak ditemukan');
             }
-        }
+        }else
     
         $stok->save();
     
