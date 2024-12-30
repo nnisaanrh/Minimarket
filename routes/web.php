@@ -89,13 +89,9 @@ Route::group(['middleware' => ['role:kasir|admin']], function () {
     Route::get('/transaksi/show', [TransaksiController::class, 'show'])->name('transaksi.show');
     Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
-
-
-        
-    
-        // Route::get('/transaksi/print', [BookController::class, 'print'])->name('transaksi.print');
-        // Route::get('/transaksi/export', [BookController::class, 'export'])->name('transaksi.export');
-        // Route::post('/transaksi/import', [BookController::class, 'import'])->name('book.import');
+    Route::get('/transaksi/print', [TransaksiController::class, 'print'])->name('transaksi.print');
+    Route::get('/transaksi/export', [TransaksiController::class, 'export'])->name('transaksi.export');
+    Route::post('/transaksi/import', [TransaksiController::class, 'import'])->name('tr.import');
     });
 //-----------------------------------------------------------------------------------------------------------
 

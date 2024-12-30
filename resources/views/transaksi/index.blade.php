@@ -7,6 +7,31 @@
                 {{ session('success') }}
             </div>
         @endif
+        <!-- Tombol Import -->
+        <form action="{{ route('transaksi.import') }}" method="POST" enctype="multipart/form-data" class="inline-block">
+            @csrf
+            <input type="file" name="file" class="mb-2" accept=".xlsx,.xls">
+            @error('file')
+                <div class="text-red-500 text-sm">{{ $message }}</div>
+            @enderror
+            <button type="submit" 
+                    class="inline-block px-6 py-2 text-sm font-medium text-white bg-green-600 rounded-lg shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600">
+                Import Transaksi
+            </button>
+        </form>
+        
+        <!-- Tombol Export -->
+        <a href="{{ route('transaksi.export') }}" 
+           class="inline-block px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 ml-4">
+            Export Transaksi
+        </a>
+        
+        <!-- Tombol Print -->
+        <a href="{{ route('transaksi.print') }}" 
+           class="inline-block px-6 py-2 text-sm font-medium text-white bg-red-600 rounded-lg shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 ml-4">
+            Print Transaksi
+        </a>
+    </div>
 
         <div class="overflow-x-auto">
             <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400">

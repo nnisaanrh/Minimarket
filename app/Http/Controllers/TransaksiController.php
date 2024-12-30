@@ -2,6 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransaksiExport;
+use App\Imports\TransaksiImport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
+use \Maatwebsite\Excel\Facades\Excel;
+
+
 use App\Models\Transaksi;
 use App\Models\Barang;
 use App\Models\TransaksiDetail;
@@ -109,6 +116,26 @@ foreach ($request->details as $detail) {
     $transaksi->update(['total' => $total]);
 
     return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dibuat!');
+}
+
+public function print(){
+    $transaksis = Transaksi::with(['transaksiDetails.barang'])->get();
+    $data['transaksis'] = Transaksi::with('transaksiDetails', 'transaksiDetails.barang')->get();
+    $pdf = Pdf::loadView('transaksi.print',$data);
+    return $pdf->download('Detail_Transaksi.pdf');
+}
+public function export()
+{
+    // Menjalankan ekspor ke Excel
+    return Excel::download(new TransaksiExport, 'transaksi.xlsx');
+}
+public function import(Request $request){
+    Excel::import(new TransaksiImport, $request->file('file'));
+    $notification = array( 
+        'message' => 'Data buku berhasil diImport', 
+        'alert-type' => 'success' 
+    );
+    return redirect()->route('transaksi.index')->with($notification);
 }
 
 
