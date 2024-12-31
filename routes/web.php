@@ -56,6 +56,9 @@ Route::post('/StockMovement', [StockMovementController::class, 'store'])->name('
 Route::get('/StockMovement/{StockMovement}/edit', [StockMovementController::class, 'edit'])->name('stock_movements.edit');
 Route::put('/StockMovement/{StockMovement}', [StockMovementController::class, 'update'])->name('stock_movements.update');
 Route::delete('/StockMovement/{StockMovement}', [StockMovementController::class, 'destroy'])->name('.destroy');
+Route::get('/StockMovement/print', [StockMovementController::class, 'print'])->name('stock_movements.print');
+Route::get('/StockMovement/export', [StockMovementController::class, 'export'])->name('stock_movements.export');
+Route::post('/StockMovement/import', [StockMovementController::class, 'import'])->name('stock_movements.import');
 //-----------------------------------------------------------------------------------------------------------
 
 //Transaksi admin
@@ -64,6 +67,9 @@ Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaks
 Route::get('/transaksi/show', [TransaksiController::class, 'show'])->name('transaksi.show');
 Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create');
 Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+Route::get('/transaksi/print', [TransaksiController::class, 'print'])->name('transaksi.print');
+Route::get('/transaksi/export', [TransaksiController::class, 'export'])->name('transaksi.export');
+Route::post('/transaksi/import', [TransaksiController::class, 'import'])->name('transaksi.import');
 
 //------------------------------------------------------------------------------------------------------------
 
@@ -91,7 +97,7 @@ Route::group(['middleware' => ['role:kasir|admin']], function () {
     Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
     Route::get('/transaksi/print', [TransaksiController::class, 'print'])->name('transaksi.print');
     Route::get('/transaksi/export', [TransaksiController::class, 'export'])->name('transaksi.export');
-    Route::post('/transaksi/import', [TransaksiController::class, 'import'])->name('tr.import');
+    Route::post('/transaksi/import', [TransaksiController::class, 'import'])->name('transaksi.import');
     });
 //-----------------------------------------------------------------------------------------------------------
 
