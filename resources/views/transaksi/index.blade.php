@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="max-w-4xl mx-auto mt-10 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
-        <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6">Daftar Transaksi</h1>
+    <div class="max-w-5xl mx-auto mt-10 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold text-red-900 dark:text-gray-200 mb-6">Daftar Transaksi</h1>
 
         @if(session('success'))
             <div class="mb-4 p-4 text-sm text-green-800 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-900">
@@ -33,9 +33,9 @@
         </a>
     </div>
 
-        <div class="overflow-x-auto">
-            <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+        <div class="overflow-x-auto mt-8">
+            <table class="table-auto w-full text-sm text-left text-black dark:text-gray-400">
+                <thead class="text-xs text-white uppercase bg-red-700 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th class="px-4 py-3 border">ID Transaksi</th>
                         <th class="px-4 py-3 border">Tanggal Penjualan</th>
