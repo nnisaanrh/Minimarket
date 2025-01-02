@@ -29,6 +29,7 @@
                                 <th class="px-4 py-2 border">Nama Barang</th>
                                 <th class="px-4 py-2 border">SKU</th>
                                 <th class="px-4 py-2 border">Harga Satuan</th>
+                                <th class="px-4 py-2 border">Stok</th>
                                 <th class="px-4 py-2 border">Aksi</th>
                             </tr>
                         </thead>
@@ -39,6 +40,9 @@
                                     <td class="px-4 py-2 border">{{ $item->nama_barang }}</td>
                                     <td class="px-4 py-2 border">{{ $item->sku }}</td>
                                     <td class="px-4 py-2 border">{{ number_format($item->harga_satuan, 0, ',', '.') }}</td>
+                                    <td class="px-4 py-2 border">
+                                        {{ optional($item->stok)->quantity ?? 'Tidak tersedia' }}
+                                    </td>
                                     <td class="px-4 py-2 border text-center">
                                         <a href="{{ route('barang.edit', $item->id) }}" class="px-2 py-1 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition inline-block">Edit</a>
                                         <form action="{{ route('barang.destroy', $item->id) }}" method="POST" class="inline-block">
