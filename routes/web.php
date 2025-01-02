@@ -2,6 +2,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\StokController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +99,7 @@ Route::group(['middleware' => ['role:kasir|admin']], function () {
     Route::get('/transaksi/print', [TransaksiController::class, 'print'])->name('transaksi.print');
     Route::get('/transaksi/export', [TransaksiController::class, 'export'])->name('transaksi.export');
     Route::post('/transaksi/import', [TransaksiController::class, 'import'])->name('transaksi.import');
+    Route::get('/barang/view', [StokController::class, 'index'])->name('barang.view');
     });
 //-----------------------------------------------------------------------------------------------------------
 

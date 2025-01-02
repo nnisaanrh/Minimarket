@@ -13,10 +13,16 @@ class StokController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        // Mengambil data stok beserta relasi cabang dan barang
-        $stok = Stok::with('cabang', 'barang')->get();
-        return view('stok.index', compact('stok')); // Mengirim data ke view stok.index
+    {   // Ambil cabang_id dari pengguna yang sedang login
+        $cabang_id = auth()->user()->cabang_id;
+        // Ambil stok berdasarkan cabang_id yang terkait dengan pengguna
+        $stok = Stok::where('cabang_id', $cabang_id)
+            ->with('barang') // Memuat detail transaksi
+            ->get();
+        return view('barang.view', compact('stok'));
+        // // Mengambil data stok beserta relasi cabang dan barang
+        // $stok = Stok::with('cabang', 'barang')->get();
+        // return view('stok.index', compact('stok')); // Mengirim data ke view stok.index
     }
 
     /**

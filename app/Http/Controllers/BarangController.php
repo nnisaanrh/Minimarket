@@ -13,7 +13,6 @@ class BarangController extends Controller
     return view('barang.index', compact('barangs'));
 }
 
-
     public function create()
     {
         return view('barang.create'); // Perbaikan pada nama view
