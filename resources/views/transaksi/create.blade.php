@@ -4,7 +4,7 @@
         <form action="{{ route('transaksi.store') }}" method="POST" class="space-y-6">
             @csrf
 
-            @if($errors->any())
+        @if($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach($errors->all() as $error)
@@ -52,7 +52,7 @@
                 <button type="submit" class="w-50 px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 focus:ring focus:ring-green-300">
                     Simpan
                 </button>
-                <a href="{{ route('transaksi.index') }}" class="w-30 px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-800 focus:ring focus:ring-gray-300">
+                <a href="{{ route('transaksi.index') }}" class="w-30 px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-yellow-400 focus:ring focus:ring-gray-300">
                     Batal
                 </a>
             </div>

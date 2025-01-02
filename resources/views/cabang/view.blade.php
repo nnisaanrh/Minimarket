@@ -10,6 +10,9 @@
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <h1 class="text-2xl font-bold mb-6">Daftar Cabang</h1>
 
+                {{-- Tombol tambah cabang --}}
+                <a href="{{ route('cabang.create') }}" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition mb-4 inline-block">Tambah Cabang</a>
+
                 {{-- Tampilkan pesan sukses jika ada --}}
                 @if(session('success'))
                     <div class="mb-4 p-4 text-green-800 bg-green-100 rounded-lg">
@@ -36,7 +39,14 @@
                                 <td class="px-4 py-2 border">{{ $cabang->name }}</td>
                                 <td class="px-4 py-2 border">{{ $cabang->alamat }}</td>
                                 <td class="px-4 py-2 border">{{ $cabang->Kota }}</td>
-
+                                <td class="px-4 py-2 border text-center">
+                                    <a href="{{ route('cabang.edit', $cabang->id) }}" class="px-2 py-1 bg-green-500 text-white text-sm rounded hover:bg-yellow-600 transition inline-block">Edit</a>
+                                    <form action="{{ route('cabang.destroy', $cabang->id) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="px-2 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition" onclick="return confirm('Yakin ingin menghapus cabang ini?')">Hapus</button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

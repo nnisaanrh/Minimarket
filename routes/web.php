@@ -88,7 +88,7 @@ Route::group(['middleware' => ['role:manager']], function (){
 //-----------------------------------------------------------------------------------------------------------
 
 
-//TRANSAKSI
+//KASIR
 //-----------------------------------------------------------------------------------------------------------
 Route::group(['middleware' => ['role:kasir|admin']], function () {
     Route::get('/transaksi/', [TransaksiController::class, 'index'])->name('transaksi.index');
