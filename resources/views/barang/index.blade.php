@@ -11,7 +11,7 @@
                 <h1 class="text-2xl font-bold mb-6">Daftar Barang</h1>
 
                
-                <a href="{{ route('barang.create') }}" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition mb-4 inline-block">Tambah Barang</a>
+                {{-- <a href="{{ route('barang.create') }}" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition mb-4 inline-block">Tambah Barang</a> --}}
 
                 {{-- Tampilkan pesan sukses jika ada --}}
                 @if(session('success'))
@@ -20,6 +20,8 @@
                     </div>
                 @endif
                 <div class="detail-row flex flex-nowrap items-start gap-4">
+                    <!-- Tombol tambah -->
+                    <a href="{{ route('barang.create') }}" class="inline-block px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 ml-4">Tambah Barang</a>
                     <!-- Tombol Export -->
                    <a href="{{ route('barang.export') }}" 
                    class="inline-block px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 ml-4">
@@ -34,7 +36,7 @@
 
 
                 {{-- Tabel daftar barang --}}
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto mt-7">
                     <table class="min-w-full bg-white dark:bg-gray-700 border border-gray-300 rounded-lg">
                         <thead>
                             <tr class="bg-red-700 dark:bg-gray-600 text-white dark:text-gray-100">

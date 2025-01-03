@@ -36,6 +36,12 @@
                         </x-nav-link>
                 @endhasrole
 
+                @hasrole('gudang')
+                        <x-nav-link :href="route('stock_movements.index')" :active="request()->routeIs('stock_movements.index')">
+                            {{ __('Pergerakan Barang') }}
+                        </x-nav-link>
+                @endhasrole
+
                 @hasrole('kasir')
                         <x-nav-link :href="route('barang.view')" :active="request()->routeIs('barang.view')">
                             {{ __('Barang') }}
