@@ -6,46 +6,55 @@ use App\Models\Barang;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Carbon\Carbon;
-class BarangExport implements FromCollection
+
+class BarangExport implements FromCollection, WithHeadings, WithMapping
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return Barang::with('stok','stockMovements');
+        // Mengambil data barang dengan relasi stok dan stockMovements
+        return Barang::with('stok', 'stok.cabang', 'stockMovements')->get();
     }
 
     public function headings(): array
     {
         return [
             'No',
-            'cabang',
+            'Cabang',
             'Nama Barang',
             'SKU',
-            'Harga/barang',
-            'stok',
-            'pergerakan stok',
+            'Harga/Barang',
+            'Stok',
+
         ];
     }
-    
 
+    /**
+     * Mengubah data untuk ekspor.
+     *
+     * @param  \App\Models\Barang  $barang
+     * @return array
+     */
     public function map($barang): array
-{
-    // Ambil semua nama cabang dari stok terkait
-    $cabangNames = $barang->stok->map(function ($stok) {
-        return $stok->cabang ? $stok->cabang->name : 'Tidak Ada Cabang';
-    })->unique()->implode(', ');
+    {
+        // Mengambil nama cabang dari stok terkait
+        $cabangNames = $barang->stok->map(function ($stok) {
+            return $stok->cabang ? $stok->cabang->name : 'Tidak Ada Cabang';
+        })->unique()->implode(', ');
 
-    return [
-        $barang->id,
-        $cabangNames, // Menampilkan nama-nama cabang terkait
-        $barang->nama_barang,
-        $barang->sku,
-        $barang->harga_satuan,
-        $barang->stok->sum('qantity'), // Menghitung total stok
-        ucfirst(optional($barang->stockMovements->first())->type), // Mengambil pergerakan stok pertama
-    ];
+        // Mengambil pergerakan stok terakhir
+        $lastStockMovement = $barang->stockMovements->last();
+
+        return [
+            $barang->id, // No
+            $cabangNames, // Nama cabang terkait
+            $barang->nama_barang, // Nama Barang
+            $barang->sku, // SKU
+            $barang->harga_satuan, // Harga per Barang
+            $barang->stok->sum('quantity'), // Total stok
+        ];
+    }
 }
-}
+

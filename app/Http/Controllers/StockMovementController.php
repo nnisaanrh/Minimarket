@@ -67,29 +67,28 @@ class StockMovementController extends Controller
                     ->where('barang_id', $request->barang_id)
                     ->first();
     
-        if ($request->type === 'in') {
-            if ($stok) {
-                $stok->quantity += $request->quantity;
-            } else {
-                // Jika stok tidak ada, buat stok baru
-                $stok = Stok::create([
-                    'cabang_id' => $request->cabang_id,
-                    'barang_id' => $request->barang_id,
-                    'quantity'  => $request->quantity,
-                ]);
-            }
-        } elseif ($request->type === 'out') {
-            if ($stok) {
-                $stok->quantity -= $request->quantity;
-    
-                // Pastikan stok cukup
-                if ($stok->quantity < 0) {
-                    return redirect()->back()->with('error', 'Jumlah stok tidak mencukupi');
-                }
-            } else {
-                return redirect()->back()->with('error', 'Stok tidak ditemukan');
-            }
-        }
+                    if ($request->type === 'in') {
+                        // Jika tipe 'in', buat stok baru jika belum ada dengan quantity 0
+                        if (!$stok) {
+                            $stok = Stok::create([
+                                'cabang_id' => $request->cabang_id,
+                                'barang_id' => $request->barang_id,
+                                'quantity'  => 0,
+                            ]);
+                        }
+                    } elseif ($request->type === 'out') {
+                        // Jika tipe 'out', tambahkan quantity
+                        if ($stok) {
+                            $stok->quantity += $request->quantity;
+                        } else {
+                            // Buat stok baru dengan quantity dari input
+                            $stok = Stok::create([
+                                'cabang_id' => $request->cabang_id,
+                                'barang_id' => $request->barang_id,
+                                'quantity'  => $request->quantity,
+                            ]);
+                        }
+                    }
     
         $stok->save();
     

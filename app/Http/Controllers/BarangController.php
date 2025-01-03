@@ -2,16 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BarangExport;
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class BarangController extends Controller
 {
     public function index()
-{
-    $barangs = Barang::all(); // Mengambil semua data barang
-    return view('barang.index', compact('barangs'));
-}
+    {
+        // Ambil cabang_id dari pengguna yang sedang login
+        $cabang_id = auth()->user()->cabang_id;
+    
+        // Memeriksa jika cabang_id null
+        if ($cabang_id) {
+            // Jika cabang_id ada, ambil barang yang terkait dengan cabang_id
+            $barangs = Barang::where('cabang_id', $cabang_id)->get();
+            return view('barang.view', compact('barangs')); // Menggunakan view khusus untuk cabang tertentu
+        } else {
+            // Jika cabang_id null, ambil semua barang
+            $barangs = Barang::all(); // Mengambil semua data barang
+            return view('barang.index', compact('barangs')); // Menggunakan view untuk daftar barang umum
+        }
+    }
+    
 
     public function create()
     {
@@ -45,7 +61,7 @@ class BarangController extends Controller
     {
         $validated = $request->validate([
             'nama_barang' => 'required|max:50',
-            'sku' => 'required|max:50|unique:barangs,sku',
+            'sku' => 'required|max:50|unique:barangs,sku,' . $barang->id,
             'harga_satuan' => 'required|numeric|min:0'
         ], [
             'nama_barang.required' => 'Nama barang tidak boleh kosong.',
@@ -67,13 +83,43 @@ class BarangController extends Controller
         return redirect()->route('barang.index')->with('success', 'Barang berhasil dihapus!');
     }
 
-    // public function destroy($id)
-    // {
-    //     $barang = Barang::findOrFail($id); // Temukan data berdasarkan ID
-    //     $barang->delete(); // Hapus data
+    public function export()
+{
+    // Ambil cabang_id dari pengguna yang sedang login
+    $cabang_id = auth()->user()->cabang_id;
 
-    //     return redirect()->route('barang.index')->with('success', 'Data berhasil dihapus');
-    // }
+    // Ambil barang yang terkait dengan cabang_id melalui relasi Stok
+    $barangs = Barang::whereHas('stoks', function ($query) use ($cabang_id) {
+        $query->where('cabang_id', $cabang_id);
+    })->get();
+
+    // Menjalankan ekspor ke Excel menggunakan data barang yang sesuai
+    return Excel::download(new BarangExport($barangs), 'barang_'.$cabang_id.'.xlsx');
+}
+
+   
+    
+public function print()
+{
+    // Ambil cabang_id dari pengguna yang sedang login
+    $cabang_id = auth()->user()->cabang_id;
+
+    // Ambil barang yang terkait dengan cabang_id melalui relasi Stok
+    $barangs = Barang::whereHas('stoks', function ($query) use ($cabang_id) {
+        $query->where('cabang_id', $cabang_id);
+    })->get();
+
+    // Mengirim data barang untuk dicetak
+    $data['barangs'] = $barangs;
+
+    // Load view PDF dan buat file PDF
+    $pdf = Pdf::loadView('barang.print', $data);
+
+    // Download file PDF
+    return $pdf->download('Barang_'.$cabang_id.'.pdf');
+}
+
+
 }
     
 

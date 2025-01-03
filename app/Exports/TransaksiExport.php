@@ -1,48 +1,49 @@
 <?php
 
-namespace App\Imports;
+namespace App\Exports;
 
 use App\Models\Transaksi;
-use App\Models\TransaksiDetail;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class TransaksiImport implements ToModel, WithHeadingRow
+class TransaksiExport implements FromCollection, WithHeadings
 {
-    private $currentTransaksi;
+    protected $transaksis;
 
-    public function __construct()
+    public function __construct($transaksis)
     {
-        $this->currentTransaksi = null;
+        $this->transaksis = $transaksis;
     }
 
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
+    public function collection()
     {
-        // Jika kolom "barang_id" tidak ada, anggap ini adalah data Transaksi
-        if (!isset($row['barang_id'])) {
-            $this->currentTransaksi = Transaksi::create([
-                'cabang_id' => $row['cabang_id'],
-                'user_id' => $row['user_id'],
-                'total' => $row['total_transaksi'],
-                'tanggal_penjualan' => $row['tanggal_penjualan'],
-            ]);
-
-            return $this->currentTransaksi;
+        // Mengembalikan data transaksi dalam format yang sesuai untuk diexport
+        $data = [];
+        foreach ($this->transaksis as $transaksi) {
+            foreach ($transaksi->transaksiDetails as $detail) {
+                $data[] = [
+                    'transaksi_id' => $transaksi->id,
+                    'tanggal_penjualan' => $transaksi->tanggal_penjualan,
+                    'barang_nama' => $detail->barang->nama_barang, // Asumsi ada kolom nama pada tabel barang
+                    'jumlah_barang' => $detail->jumlah_barang,
+                    'harga' => $detail->harga,
+                    'harga_total' => $detail->harga_total,
+                ];
+            }
         }
+        return collect($data);
+    }
 
-        // Jika kolom "barang_id" ada, anggap ini adalah data TransaksiDetail
-        return new TransaksiDetail([
-            'transaksi_id' => $this->currentTransaksi ? $this->currentTransaksi->id : null,
-            'barang_id' => $row['barang_id'],
-            'jumlah_barang' => $row['jumlah_barang'],
-            'harga' => $row['harga_barang'],
-            'harga_total' => $row['harga_total'],
-        ]);
+    public function headings(): array
+    {
+        return [
+            'Transaksi ID',
+            'Tanggal Penjualan',
+            'Nama Barang',
+            'Jumlah Barang',
+            'Harga',
+            'Harga Total',
+        ];
     }
 }
+

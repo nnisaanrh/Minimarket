@@ -16,6 +16,18 @@
                         {{ session('success') }}
                     </div>
                 @endif
+                <div class="detail-row flex flex-nowrap items-start gap-4">
+                     <!-- Tombol Export -->
+                    <a href="{{ route('barang.export') }}" 
+                    class="inline-block px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 ml-4">
+                    Export Barang
+                    </a>
+                     <!-- Tombol Print -->
+                    <a href="{{ route('barang.print') }}" 
+                    class="inline-block px-6 py-2 text-sm font-medium text-white bg-red-600 rounded-lg shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 ml-4">
+                    Print Barang
+                    </a>
+                </div>
 
                 {{-- Tabel daftar barang --}}
                 <div class="overflow-x-auto bg-gray-100 dark:bg-gray-900 rounded-lg shadow">

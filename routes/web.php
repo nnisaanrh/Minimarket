@@ -100,6 +100,8 @@ Route::group(['middleware' => ['role:kasir|admin']], function () {
     Route::get('/transaksi/export', [TransaksiController::class, 'export'])->name('transaksi.export');
     Route::post('/transaksi/import', [TransaksiController::class, 'import'])->name('transaksi.import');
     Route::get('/barang/view', [StokController::class, 'index'])->name('barang.view');
+    Route::get('/barang/print', [BarangController::class, 'print'])->name('barang.print');
+    Route::get('/barang/export', [BarangController::class, 'export'])->name('barang.export');
     });
 //-----------------------------------------------------------------------------------------------------------
 
