@@ -32,6 +32,7 @@ class BarangExport implements FromCollection, WithHeadings, WithMapping
             'SKU',
             'Harga/barang',
             'Stok',
+            
         ];
     }
 
