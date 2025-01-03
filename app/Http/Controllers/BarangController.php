@@ -84,18 +84,24 @@ class BarangController extends Controller
     }
 
     public function export()
-{
-    // Ambil cabang_id dari pengguna yang sedang login
-    $cabang_id = auth()->user()->cabang_id;
+    {
+        // Ambil cabang_id dari pengguna yang sedang login
+        $cabang_id = auth()->user()->cabang_id;
 
-    // Ambil barang yang terkait dengan cabang_id melalui relasi Stok
-    $barangs = Barang::whereHas('stoks', function ($query) use ($cabang_id) {
-        $query->where('cabang_id', $cabang_id);
-    })->get();
+        // Ambil barang yang terkait dengan cabang_id melalui relasi stok
+        $barangs = Barang::whereHas('stok', function ($query) use ($cabang_id) {
+            // Filter stok berdasarkan cabang_id
+            $query->where('cabang_id', $cabang_id);
+        })
+        ->with(['stok' => function($query) use ($cabang_id) {
+            // Pastikan stok juga difilter berdasarkan cabang yang login
+            $query->where('cabang_id', $cabang_id);
+        }, 'stok.cabang', 'stockMovements'])
+        ->get(); // Mengambil barang yang sesuai dengan cabang_id login
 
-    // Menjalankan ekspor ke Excel menggunakan data barang yang sesuai
-    return Excel::download(new BarangExport($barangs), 'barang_'.$cabang_id.'.xlsx');
-}
+        // Menjalankan ekspor ke Excel menggunakan data barang yang sesuai dengan cabang
+        return Excel::download(new BarangExport($barangs), 'barang_'.$cabang_id.'.xlsx');
+    }
 
    
     

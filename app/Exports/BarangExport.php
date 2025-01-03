@@ -9,13 +9,18 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class BarangExport implements FromCollection, WithHeadings, WithMapping
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
+    protected $barangs;
+
+    // Konstruktor untuk menerima data barang yang difilter
+    public function __construct($barangs)
+    {
+        $this->barangs = $barangs;
+    }
+
     public function collection()
     {
-        // Mengambil data barang dengan relasi stok dan stockMovements
-        return Barang::with('stok', 'stok.cabang', 'stockMovements')->get();
+        // Mengembalikan koleksi barang yang sudah difilter berdasarkan cabang
+        return $this->barangs;
     }
 
     public function headings(): array
@@ -25,36 +30,27 @@ class BarangExport implements FromCollection, WithHeadings, WithMapping
             'Cabang',
             'Nama Barang',
             'SKU',
-            'Harga/Barang',
+            'Harga/barang',
             'Stok',
-
         ];
     }
 
-    /**
-     * Mengubah data untuk ekspor.
-     *
-     * @param  \App\Models\Barang  $barang
-     * @return array
-     */
     public function map($barang): array
     {
-        // Mengambil nama cabang dari stok terkait
+        // Ambil semua nama cabang dari stok terkait
         $cabangNames = $barang->stok->map(function ($stok) {
             return $stok->cabang ? $stok->cabang->name : 'Tidak Ada Cabang';
         })->unique()->implode(', ');
 
-        // Mengambil pergerakan stok terakhir
-        $lastStockMovement = $barang->stockMovements->last();
-
         return [
-            $barang->id, // No
-            $cabangNames, // Nama cabang terkait
-            $barang->nama_barang, // Nama Barang
-            $barang->sku, // SKU
-            $barang->harga_satuan, // Harga per Barang
-            $barang->stok->sum('quantity'), // Total stok
+            $barang->id,
+            $cabangNames, // Menampilkan nama-nama cabang terkait
+            $barang->nama_barang,
+            $barang->sku,
+            $barang->harga_satuan,
+            $barang->stok->sum('quantity'), // Menghitung total stok
         ];
     }
 }
+
 
