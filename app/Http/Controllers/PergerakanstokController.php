@@ -16,58 +16,47 @@ use Illuminate\Support\Facades\Storage;
 use \Maatwebsite\Excel\Facades\Excel;
 
 
-class StockMovementController extends Controller
+class PergerakanstokController extends Controller
 {
     // Menampilkan semua data stock movements dalam tampilan
     public function index()
     {
-    $cabangId = auth()->user()->cabang_id; // Ambil cabang_id dari user yang sedang login
-    $stockMovements = StockMovement::with(['cabang', 'barang', 'user'])
-        ->where('cabang_id', $cabangId)
-        ->get();
-    return view('stock_movements.index', compact('stockMovements'));
+        $stockMovements = StockMovement::with(['cabang', 'barang', 'user'])->get();
+        return view('stock_movements.index', compact('stockMovements'));
     }
 
     // Menampilkan detail satu stock movement berdasarkan ID dalam tampilan
     public function show($id)
     {
-    $cabangId = auth()->user()->cabang_id; // Ambil cabang_id dari user yang sedang login
-    $stockMovement = StockMovement::with(['cabang', 'barang', 'user'])
-        ->where('cabang_id', $cabangId)
-        ->find($id);
+        $stockMovement = StockMovement::with(['cabang', 'barang', 'user'])->find($id);
 
-    if (!$stockMovement) {
-        return redirect()->route('stock_movements.index')->with('error', 'Stock movement not found');
-    }
+        if (!$stockMovement) {
+            return redirect()->route('stock_movements.index')->with('error', 'Stock movement not found');
+        }
 
-    return view('stock_movements.show', compact('stockMovement'));
+        return view('stock_movements.show', compact('stockMovement'));
     }
     
     public function create()
     {
-    $cabangId = auth()->user()->cabang_id; // Ambil cabang_id dari user yang sedang login
-    $barangs = Barang::whereHas('stok', function ($query) use ($cabangId) {
-        $query->where('cabang_id', $cabangId);
-    })->get();
+        // Ambil data cabang, barang, dan user untuk diisi dalam form
+        $cabangs = Cabang::all();
+        $barangs = Barang::all();
+        $users = User::all();
 
-    $users = User::all(); // Atur sesuai kebutuhan
-
-    return view('stock_movements.create', compact('barangs', 'users', 'cabangId'));
+        return view('stock_movements.create', compact('cabangs', 'barangs', 'users'));
     }
 
     // Menyimpan data stock movement baru
     public function store(Request $request)
     {
-        $cabangId = auth()->user()->cabang_id; // Ambil cabang_id dari user yang sedang login
-
-        $request->merge(['cabang_id' => $cabangId]); // Tambahkan cabang_id ke request
-
-         $request->validate([
-        'cabang_id' => 'required|exists:cabangs,id',
-        'barang_id' => 'required|exists:barangs,id',
-        'user_id'   => 'required|exists:users,id',
-        'type'      => 'required|in:in,out',
-        'quantity'  => 'required|integer|min:1',
+        // Validasi data
+        $request->validate([
+            'cabang_id' => 'required|exists:cabangs,id',
+            'barang_id' => 'required|exists:barangs,id',
+            'user_id'   => 'required|exists:users,id',
+            'type'      => 'required|in:in,out',
+            'quantity'  => 'required|integer|min:1',
         ]);
     
         // Simpan data stock_movements
@@ -109,63 +98,63 @@ class StockMovementController extends Controller
     // Menampilkan form edit stock movement berdasarkan ID
     public function edit($id)
     {
-    $cabangId = auth()->user()->cabang_id;
-    $stockMovement = StockMovement::where('cabang_id', $cabangId)->find($id);
+        $stockMovement = StockMovement::find($id);
 
-    if (!$stockMovement) {
-        return redirect()->route('stock_movements.index')->with('error', 'Stock movement not found');
-    }
+        if (!$stockMovement) {
+            return redirect()->route('stock_movements.index')->with('error', 'Stock movement not found');
+        }
 
-    $barangs = Barang::all();
-    $users = User::all();
+        $cabangs = Cabang::all();
+        $barangs = Barang::all();
+        $users = User::all();
 
-    return view('stock_movements.edit', compact('stockMovement', 'barangs', 'users'));
+        return view('stock_movements.edit', compact('stockMovement', 'cabangs', 'barangs', 'users'));
     }
 
     // Mengupdate data stock movement berdasarkan ID
     public function update(Request $request, $id)
     {
-    $cabangId = auth()->user()->cabang_id;
-    $stockMovement = StockMovement::where('cabang_id', $cabangId)->find($id);
+        $stockMovement = StockMovement::find($id);
 
-    if (!$stockMovement) {
-        return redirect()->route('stock_movements.index')->with('error', 'Stock movement not found');
-    }
+        if (!$stockMovement) {
+            return redirect()->route('stock_movements.index')->with('error', 'Stock movement not found');
+        }
 
-    $request->validate([
-        'barang_id' => 'required|exists:barangs,id',
-        'user_id'   => 'required|exists:users,id',
-        'type'      => 'required|in:in,out',
-        'quantity'  => 'required|integer|min:1',
-    ]);
+        // Validasi data
+        $request->validate([
+            'cabang_id' => 'required|exists:cabangs,id',
+            'barang_id' => 'required|exists:barangs,id',
+            'user_id'   => 'required|exists:users,id',
+            'type'      => 'required|in:in,out',
+            'quantity'  => 'required|integer|min:1',
+        ]);
 
-    $stockMovement->update($request->all());
+        // Update data stock movement
+        $stockMovement->update($request->all());
 
-    return redirect()->route('stock_movements.index')->with('success', 'Stock Movement berhasil diupdate');
+        return redirect()->route('stock_movements.index')->with('success', 'Stock Movement berhasil diupdate');
     }
 
     // Menghapus stock movement berdasarkan ID
     public function destroy($id)
     {
-    $cabangId = auth()->user()->cabang_id;
-    $stockMovement = StockMovement::where('cabang_id', $cabangId)->find($id);
+        $stockMovement = StockMovement::find($id);
 
-    if (!$stockMovement) {
-        return redirect()->route('stock_movements.index')->with('error', 'Stock movement not found');
-    }
+        if (!$stockMovement) {
+            return redirect()->route('stock_movements.index')->with('error', 'Stock movement not found');
+        }
 
-    $stockMovement->delete();
+        $stockMovement->delete();
 
-    return redirect()->route('stock_movements.index')->with('success', 'Stock movement deleted successfully');
+        return redirect()->route('stock_movements.index')->with('success', 'Stock movement deleted successfully');
     }
 
 
     public function export()
-    {
-    $cabangId = auth()->user()->cabang_id;
+{
     // Menjalankan ekspor ke Excel
     return Excel::download(new StokMovementExport, 'Pergerakan Gudang.xlsx');
-    }
+}
 
 public function import(Request $request)
 {
@@ -202,6 +191,8 @@ public function import(Request $request)
     }
 }
 
+
+
 // public function import(Request $request){
 //     Excel::import(new StokMovementImport, $request->file('file'));
 //     $notification = array( 
@@ -211,13 +202,10 @@ public function import(Request $request)
 //     return redirect()->route('stock_movements.index')->with($notification);
 // }
 
-        public function print()
-        {
-            $cabangId = auth()->user()->cabang_id;
-            $data['stock_movements'] = StockMovement::with(['cabang', 'barang', 'user'])
-                ->where('cabang_id', $cabangId)
-                ->get();
-            $pdf = Pdf::loadView('stock_movements.print', $data);
-            return $pdf->download('stok_movement.pdf');
-        }
+    public function print()
+    {
+        $data['stock_movements'] = StockMovement::with(['cabang', 'barang', 'user'])->get();
+        $pdf = Pdf::loadView('stock_movements.print', $data);
+        return $pdf->download('stok_movement.pdf');
+    }
 }

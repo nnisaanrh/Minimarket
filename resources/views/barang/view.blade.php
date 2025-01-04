@@ -7,8 +7,8 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-                <h1 class="text-2xl font-bold mb-6">Daftar Barang</h1>
+            <div class="p-6 text-red-900 dark:text-gray-100">
+                <h1 class="text-3xl font-bold mb-6">Daftar Barang</h1>
 
                 {{-- Tampilkan pesan sukses jika ada --}}
                 @if (session('success'))
@@ -30,7 +30,7 @@
                 </div>
 
                 {{-- Tabel daftar barang --}}
-                <div class="overflow-x-auto bg-gray-100 dark:bg-gray-900 rounded-lg shadow">
+                <div class="overflow-x-auto bg-gray-100 dark:bg-gray-900 rounded-lg shadow mt-10">
                     <table class="min-w-full table-auto border-collapse border border-gray-300 dark:border-gray-700">
                         <thead class="bg-red-700 dark:bg-gray-700 text-white dark:text-gray-300">
                             <tr>

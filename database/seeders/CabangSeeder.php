@@ -14,29 +14,29 @@ class CabangSeeder extends Seeder
     public function run(): void
     {
         Cabang::create([
-            'name'=> 'IndoJanuari',
+            'name'=> 'GoMart Cabang 1',
             'alamat'=> 'jln Kayangan Gunung Kembar',
             'kota'=> 'Cianjur'
         ]);
         Cabang::create([
-            'name'=> 'IndoFebuari',
+            'name'=> 'GoMart Cabang 2',
             'alamat'=> 'jln Bikini Bottom',
-            'kota'=> 'Cianjur'
+            'kota'=> 'Sukabumi'
         ]);
         Cabang::create([
-            'name'=> 'IndoMaret',
+            'name'=> 'GoMart Cabang 3',
             'alamat'=> 'jln Cainengah Hilir',
-            'kota'=> 'Cianjur'
+            'kota'=> 'Bandung'
         ]);
         Cabang::create([
-            'name'=> 'IndoApril',
+            'name'=> 'GoMart Cabang 4',
             'alamat'=> 'jln Ahlan Wasahlan',
-            'kota'=> 'Cianjur'
+            'kota'=> 'Bogor'
         ]);
         Cabang::create([
-            'name'=> 'IndoMei',
+            'name'=> 'GoMart Cabang 5',
             'alamat'=> 'jln pangeran popowi ',
-            'kota'=> 'Cianjur'
+            'kota'=> 'Garut'
         ]);
     }
 }

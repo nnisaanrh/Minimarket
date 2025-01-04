@@ -17,44 +17,42 @@
                         {{-- Cabang --}}
                         <div>
                             <label for="cabang_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cabang</label>
-                            <select name="cabang_id" id="cabang_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
-                                <option value="" disabled selected>-- Pilih Cabang --</option>
-                                @foreach($cabangs as $cabang)
-                                    <option value="{{ $cabang->id }}">{{ $cabang->name }}</option>
-                                @endforeach
-                            </select>
+                            {{-- Cabang (Otomatis) --}}
+                                <div>
+                                    <input type="text" name="cabang_name" id="cabang_name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md bg-gray-100" value="{{ auth()->user()->cabang->name }}" readonly>
+                                    <input type="hidden" name="cabang_id" value="{{ auth()->user()->cabang_id }}">
+                                    @error('cabang_id')
+                                        <div class="text-sm text-red-500">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             @error('cabang_id')
                                 <div class="text-sm text-red-500">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        {{-- Barang --}}
-                        <div>
-                            <label for="barang_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Barang</label>
-                            <select name="barang_id" id="barang_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
-                                <option value="" disabled selected>-- Pilih Barang --</option>
-                                @foreach($barangs as $barang)
-                                    <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
-                                @endforeach
-                            </select>
-                            @error('barang_id')
-                                <div class="text-sm text-red-500">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- User --}}
-                        <div>
-                            <label for="user_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">User</label>
-                            <select name="user_id" id="user_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
-                                <option value="" disabled selected>-- Pilih User --</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('user_id')
-                                <div class="text-sm text-red-500">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        {{-- User (Otomatis) --}}
+                            <div>
+                                <label for="user_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">User</label>
+                                <input type="text" name="user_name" id="user_name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md bg-gray-100" value="{{ auth()->user()->name }}" readonly>
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                @error('user_id')
+                                    <div class="text-sm text-red-500">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        
+                            {{-- Barang --}}
+                            <div>
+                                <label for="barang_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Barang</label>
+                                <select name="barang_id" id="barang_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+                                    <option value="" disabled selected>-- Pilih Barang --</option>
+                                    @foreach($barangs as $barang)
+                                        <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
+                                    @endforeach
+                                </select>
+                                @error('barang_id')
+                                    <div class="text-sm text-red-500">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                         {{-- Tipe --}}
                         <div>

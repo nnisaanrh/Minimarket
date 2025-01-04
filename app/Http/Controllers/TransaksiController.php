@@ -118,24 +118,11 @@ foreach ($request->details as $detail) {
     return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dibuat!');
 }
 
-public function print()
-{
-    // Ambil cabang_id dari pengguna yang sedang login
-    $cabang_id = auth()->user()->cabang_id;
-
-    // Ambil barang yang memiliki stok terkait dengan cabang_id
-    $barangs = Barang::whereHas('stoks', function ($query) use ($cabang_id) {
-        $query->where('cabang_id', $cabang_id);
-    })->get();
-
-    // Kirim data barang ke tampilan PDF
-    $data['barangs'] = $barangs;
-
-    // Load view untuk mencetak dan buat file PDF
-    $pdf = Pdf::loadView('barang.print', $data);
-
-    // Download file PDF dengan nama yang disesuaikan
-    return $pdf->download('Barang_Cabang_'.$cabang_id.'.pdf');
+public function print(){
+    $transaksis = Transaksi::with(['transaksiDetails.barang'])->get();
+    $data['transaksis'] = Transaksi::with('transaksiDetails', 'transaksiDetails.barang')->get();
+    $pdf = Pdf::loadView('transaksi.print',$data);
+    return $pdf->download('Detail_Transaksi.pdf');
 }
 
 

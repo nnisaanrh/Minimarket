@@ -5,6 +5,11 @@
             {{ __('Dashboard') }}
         </h2>
         @endhasrole 
+        @hasrole('gudang')
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+        @endhasrole 
         @hasrole('kasir')
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Selamat Datang Kasir GoMart') }}
@@ -18,6 +23,11 @@
                 @hasrole('admin')
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("Selamat datang admin") }}
+                </div>
+                @endhasrole 
+                @hasrole('gudang')
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    {{ __("Selamat datang Staf Gudang") }}
                 </div>
                 @endhasrole 
             </div>
