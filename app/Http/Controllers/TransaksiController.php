@@ -118,12 +118,26 @@ foreach ($request->details as $detail) {
     return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dibuat!');
 }
 
-public function print(){
-    $transaksis = Transaksi::with(['transaksiDetails.barang'])->get();
-    $data['transaksis'] = Transaksi::with('transaksiDetails', 'transaksiDetails.barang')->get();
-    $pdf = Pdf::loadView('transaksi.print',$data);
-    return $pdf->download('Detail_Transaksi.pdf');
+public function print()
+{
+    // Ambil cabang_id dari pengguna yang sedang login
+    $cabang_id = auth()->user()->cabang_id;
+
+    // Ambil transaksi yang sesuai dengan cabang_id
+    $transaksis = Transaksi::where('cabang_id', $cabang_id)
+        ->with(['transaksiDetails.barang']) // Relasi transaksiDetails dan barang
+        ->get();
+
+    // Siapkan data untuk dikirim ke view
+    $data['transaksis'] = $transaksis;
+
+    // Buat PDF menggunakan data transaksi
+    $pdf = Pdf::loadView('transaksi.print', $data);
+
+    // Download file PDF dengan nama khusus
+    return $pdf->download('Detail_Transaksi_Cabang_' . $cabang_id . '.pdf');
 }
+
 
 
 public function export()
@@ -143,7 +157,7 @@ public function export()
 public function import(Request $request){
     Excel::import(new TransaksiImport, $request->file('file'));
     $notification = array( 
-        'message' => 'Data buku berhasil diImport', 
+        'message' => 'Data transasksi', 
         'alert-type' => 'success' 
     );
     return redirect()->route('transaksi.index')->with($notification);
