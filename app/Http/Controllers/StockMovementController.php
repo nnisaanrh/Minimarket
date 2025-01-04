@@ -29,18 +29,13 @@ class StockMovementController extends Controller
     }
 
     // Menampilkan detail satu stock movement berdasarkan ID dalam tampilan
-    public function show($id)
+    public function show()
     {
-    $cabangId = auth()->user()->cabang_id; // Ambil cabang_id dari user yang sedang login
-    $stockMovement = StockMovement::with(['cabang', 'barang', 'user'])
+        $cabangId = auth()->user()->cabang_id; // Ambil cabang_id dari user yang sedang login
+    $stockMovements = StockMovement::with(['cabang', 'barang', 'user'])
         ->where('cabang_id', $cabangId)
-        ->find($id);
-
-    if (!$stockMovement) {
-        return redirect()->route('stock_movements.index')->with('error', 'Stock movement not found');
-    }
-
-    return view('stock_movements.show', compact('stockMovement'));
+        ->get();
+    return view('stock_movements.show', compact('stockMovements'));
     }
     
     public function create()

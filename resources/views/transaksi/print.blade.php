@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Buku Perpustakaan</title>
+    <title>Transaksi</title>
     <style>
         th, td {
             padding: 10px;
@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <h1 style="text-align: center;">List Buku Perpustakaan</h1>
+        <h1 style="text-align: center;">Transaksi</h1>
     </header>
     <section>
         <table border="1" style="border-collapse: collapse; margin: 0px 10px 0px 10px;">
