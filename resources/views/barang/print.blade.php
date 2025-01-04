@@ -59,7 +59,13 @@
             @forelse($barangs as $barang)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $barang->stok->first()->cabang->name }}</td> <!-- Ambil cabang dari stok -->
+                    <td>
+                        @foreach($barang->stoks as $stok)
+                            @if($stok->cabang_id == auth()->user()->cabang_id)
+                                {{ $stok->cabang->name }}
+                            @endif
+                        @endforeach
+                    </td>
                     <td>{{ $barang->nama_barang }}</td>
                     <td>{{ $barang->sku }}</td>
                     <td>{{ number_format($barang->harga_satuan, 2) }}</td>
