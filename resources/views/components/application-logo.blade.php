@@ -1,1 +1,1 @@
-<img src="{{ asset('images/logo gomart.png') }}" alt="logo smp" class="w-12">
+<img src="{{ asset('images/yusmart.png') }}" alt="logo smp" class="w-12">

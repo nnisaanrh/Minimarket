@@ -24,7 +24,7 @@
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white dark:bg-gray-700 border border-gray-300 rounded-lg">
                         <thead>
-                            <tr class="bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100">
+                            <tr class="bg-red-700 dark:bg-gray-600 text-white dark:text-gray-100">
                                 <th class="px-4 py-2 border">No</th>
                                 <th class="px-4 py-2 border">Nama</th>
                                 <th class="px-4 py-2 border">Alamat</th>

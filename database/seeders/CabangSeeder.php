@@ -14,27 +14,27 @@ class CabangSeeder extends Seeder
     public function run(): void
     {
         Cabang::create([
-            'name'=> 'GoMart Cabang 1',
+            'name'=> 'YusMart Cabang 1',
             'alamat'=> 'jln Kayangan Gunung Kembar',
             'kota'=> 'Cianjur'
         ]);
         Cabang::create([
-            'name'=> 'GoMart Cabang 2',
+            'name'=> 'YusMart Cabang 2',
             'alamat'=> 'jln Bikini Bottom',
             'kota'=> 'Sukabumi'
         ]);
         Cabang::create([
-            'name'=> 'GoMart Cabang 3',
+            'name'=> 'YusMart Cabang 3',
             'alamat'=> 'jln Cainengah Hilir',
             'kota'=> 'Bandung'
         ]);
         Cabang::create([
-            'name'=> 'GoMart Cabang 4',
+            'name'=> 'YusMart Cabang 4',
             'alamat'=> 'jln Ahlan Wasahlan',
             'kota'=> 'Bogor'
         ]);
         Cabang::create([
-            'name'=> 'GoMart Cabang 5',
+            'name'=> 'YusMart Cabang 5',
             'alamat'=> 'jln pangeran popowi ',
             'kota'=> 'Garut'
         ]);
