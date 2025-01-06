@@ -32,7 +32,24 @@ class TransaksiController extends Controller
 
         return view('transaksi.index', compact('transaksis'));
     }
-    
+    public function view()
+    {
+        $user = auth()->user();
+
+    // Ambil cabang_id dan nama cabang terkait pengguna
+    $cabang = $user->cabang; // Pastikan relasi ke Cabang ada di model User
+
+    // Ambil transaksi berdasarkan cabang_id
+    $transaksis = Transaksi::where('cabang_id', $cabang->id)
+        ->with('transaksiDetails') // Memuat detail transaksi
+        ->get();
+
+    // Kirim data ke view
+    return view('transaksi.view', [
+        'transaksis' => $transaksis,
+        'cabangName' => $cabang->name // Ganti 'name' sesuai dengan nama kolom di tabel cabang
+    ]);
+    }
     public function show()
     {
         // Ambil cabang_id dari pengguna yang sedang login

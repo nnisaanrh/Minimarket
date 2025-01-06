@@ -12,16 +12,18 @@
 
                 {{-- Tombol aksi --}}
                 <div class="flex space-x-4 mb-6">
+                    @hasrole('gudang')
                     <a href="{{ route('stock_movements.create') }}" 
                        class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition">
                         Tambah Pergerakan Stok
                     </a>
+                    @endhasrole
                     <a href="{{ route('stock_movements.export') }}" 
-                       class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition">
+                       class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition">
                         Export Pergerakan Stok
                     </a>
                     <a href="{{ route('stock_movements.print') }}" 
-                       class="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition">
+                       class="px-4 py-2 bg-red-700 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition">
                         Print Pergerakan Stok
                     </a>
                 </div>

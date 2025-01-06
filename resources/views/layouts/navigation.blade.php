@@ -31,8 +31,23 @@
                 @endhasrole 
 
                 @hasrole('manager')
-                        <x-nav-link :href="route('cabang.view')" :active="request()->routeIs('cabang.view')">
-                            {{ __('Cabang') }}
+                        <x-nav-link :href="route('barang.view')" :active="request()->routeIs('barang.view')">
+                            {{ __('Barang') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('stock_movements.index')" :active="request()->routeIs('stock_movements.index')">
+                            {{ __('Pergerakan Barang') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('transaksi.view')" :active="request()->routeIs('transaksi.view')">
+                            {{ __('transaksi') }}
+                        </x-nav-link>
+                @endhasrole
+
+                @hasrole('supervisor')
+                        <x-nav-link :href="route('stock_movements.index')" :active="request()->routeIs('stock_movements.index')">
+                            {{ __('Pergerakan Barang') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('transaksi.view')" :active="request()->routeIs('transaksi.view')">
+                            {{ __('transaksi') }}
                         </x-nav-link>
                 @endhasrole
 
