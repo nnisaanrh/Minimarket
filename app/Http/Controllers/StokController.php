@@ -20,14 +20,69 @@ class StokController extends Controller
             ->with('barang') // Memuat detail transaksi
             ->get();
         return view('barang.view', compact('stok'));
-        // // Mengambil data stok beserta relasi cabang dan barang
-        // $stok = Stok::with('cabang', 'barang')->get();
-        // return view('stok.index', compact('stok')); // Mengirim data ke view stok.index
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+    //CABANG 1
+    public function adminViewCabangSatu()
+    {
+    // Tetapkan cabang ID yang ingin difilter (misalnya, cabang ID = 1)
+    $cabang_id = 1;
+    // Ambil stok berdasarkan cabang ID = 1
+    $stok = Stok::where('cabang_id', $cabang_id)
+        ->with('barang') // Memuat data relasi barang
+        ->get();
+    // Mengirim data stok ke view barang.view1
+    return view('barang.view1', compact('stok'));
+    }
+    //CABANG 2
+    public function adminViewCabangdua()
+    {
+    // Tetapkan cabang ID yang ingin difilter (misalnya, cabang ID = 1)
+    $cabang_id = 2;
+    // Ambil stok berdasarkan cabang ID = 1
+    $stok = Stok::where('cabang_id', $cabang_id)
+        ->with('barang') // Memuat data relasi barang
+        ->get();
+    // Mengirim data stok ke view barang.view1
+    return view('barang.view2', compact('stok'));
+    }
+    //CABANG 3
+    public function adminViewCabangtiga()
+    {
+    // Tetapkan cabang ID yang ingin difilter (misalnya, cabang ID = 1)
+    $cabang_id = 3;
+    // Ambil stok berdasarkan cabang ID = 1
+    $stok = Stok::where('cabang_id', $cabang_id)
+        ->with('barang') // Memuat data relasi barang
+        ->get();
+    // Mengirim data stok ke view barang.view1
+    return view('barang.view2', compact('stok'));
+    }
+    //CABANG 4
+    public function adminViewCabangempat()
+    {
+    // Tetapkan cabang ID yang ingin difilter (misalnya, cabang ID = 1)
+    $cabang_id = 4;
+    // Ambil stok berdasarkan cabang ID = 1
+    $stok = Stok::where('cabang_id', $cabang_id)
+        ->with('barang') // Memuat data relasi barang
+        ->get();
+    // Mengirim data stok ke view barang.view1
+    return view('barang.view2', compact('stok'));
+    }
+    //CABANG 5
+    public function adminViewCabanglima()
+    {
+    // Tetapkan cabang ID yang ingin difilter (misalnya, cabang ID = 1)
+    $cabang_id = 5;
+    // Ambil stok berdasarkan cabang ID = 1
+    $stok = Stok::where('cabang_id', $cabang_id)
+        ->with('barang') // Memuat data relasi barang
+        ->get();
+    // Mengirim data stok ke view barang.view1
+    return view('barang.view2', compact('stok'));
+    }
+    //AND
+  
     public function create()
     {
         // Mengambil semua data cabang dan barang untuk dropdown di form

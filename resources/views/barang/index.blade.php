@@ -1,18 +1,35 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        @hasrole('manager')
+        <a href="{{ url('/barang') }}" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Barang') }}
-        </h2>
-        {{-- <a href="" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        </a>
+        @endhasrole 
+        @hasrole('admin')
+        <a href="{{ url('/barang') }}" class="font-semibold text-sm text-white dark:text-gray-200 leading-tight bg-red-800 rounded-lg shadow inline-block px-6 py-2 hover:bg-red-600">
+            {{ __('Daftar Barang') }}
+        </a>
+        <a href="{{ url('/barang/admin-cabang-satu') }}" class="font-semibold text-sm text-white dark:text-gray-200 leading-tight bg-red-800 rounded-lg shadow inline-block px-6 py-2 hover:bg-red-600 ">
             {{ __('Barang Cabang 1') }}
-        </a> --}}
+        </a>
+        <a href="{{ url('/barang/admin-cabang-dua') }}" class="font-semibold text-sm text-white dark:text-gray-200 leading-tight bg-red-800 rounded-lg shadow inline-block px-6 py-2 hover:bg-red-600 ">
+            {{ __('Barang Cabang 2') }}
+        </a>
+        <a href="{{ url('/barang/admin-cabang-tiga') }}" class="font-semibold text-sm text-white dark:text-gray-200 leading-tight bg-red-800 rounded-lg shadow inline-block px-6 py-2 hover:bg-red-600 ">
+            {{ __('Barang Cabang 3') }}
+        </a>
+        <a href="{{ url('/barang/admin-cabang-empat') }}" class="font-semibold text-sm text-white dark:text-gray-200 leading-tight bg-red-800 rounded-lg shadow inline-block px-6 py-2 hover:bg-red-600 ">
+            {{ __('Barang Cabang 4') }}
+        </a>
+        <a href="{{ url('/barang/admin-cabang-lima') }}" class="font-semibold text-sm text-white dark:text-gray-200 leading-tight bg-red-800 rounded-lg shadow inline-block px-6 py-2 hover:bg-red-600 ">
+            {{ __('Barang Cabang 5') }}
+        </a>
+        @endhasrole 
     </x-slot>
-
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <h1 class="text-2xl font-bold mb-6">Daftar Barang</h1>
-
                
                 {{-- <a href="{{ route('barang.create') }}" class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition mb-4 inline-block">Tambah Barang</a> --}}
 

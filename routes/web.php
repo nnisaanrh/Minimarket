@@ -42,10 +42,15 @@ Route::delete('/cabang/{cabang}', [CabangController::class, 'destroy'])->name('c
 Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
 Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
 Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
-// Route::get('/barang/{barang}', [BarangController::class, 'show'])->name('barang.show');
 Route::get('/barang/{barang}/edit', [BarangController::class, 'edit'])->name('barang.edit');
 Route::put('/barang/{barang}', [BarangController::class, 'update'])->name('barang.update');
 Route::delete('/barang/{barang}', [BarangController::class, 'destroy'])->name('barang.destroy');
+Route::get('/barang/admin-cabang-satu', [StokController::class, 'adminViewCabangSatu'])->name('barang.view1');
+Route::get('/barang/admin-cabang-dua', [StokController::class, 'adminViewCabangdua'])->name('barang.view2');
+Route::get('/barang/admin-cabang-tiga', [StokController::class, 'adminViewCabangtiga'])->name('barang.view3');
+Route::get('/barang/admin-cabang-empat', [StokController::class, 'adminViewCabangempat'])->name('barang.view4');
+Route::get('/barang/admin-cabang-lima', [StokController::class, 'adminViewCabanglima'])->name('barang.view5');
+
 //-----------------------------------------------------------------------------------------------------------
 
 // stock_movements admin
@@ -81,17 +86,15 @@ Route::post('/transaksi/import', [TransaksiController::class, 'import'])->name('
 
 //MANAGER
 //-----------------------------------------------------------------------------------------------------------
-Route::group(['middleware' => ['role:manager']], function (){
-    // Rute untuk menampilkan daftar cabang (Index)
-    Route::get('/cabang/view', [BarangController::class, 'view'])->name('cabang.view');
-    Route::get('/transaksi/view', [TransaksiController::class, 'view'])->name('transaksi.view');
-    });
-
+// Route::group(['middleware' => ['role:manager']], function (){
+//     // Rute untuk menampilkan daftar cabang (Index)
+//     Route::get('/transaksi/view', [TransaksiController::class, 'view'])->name('transaksi.view');
+//     });
 //-----------------------------------------------------------------------------------------------------------
 
 //SUPERVISOR
 //-----------------------------------------------------------------------------------------------------------
-Route::group(['middleware' => ['role:supervisor']], function (){
+Route::group(['middleware' => ['role:supervisor|manager']], function (){
     // Rute untuk menampilkan daftar cabang (Index)
     Route::get('/transaksi/view', [TransaksiController::class, 'view'])->name('transaksi.view');
     });

@@ -27,7 +27,17 @@ class BarangController extends Controller
             return view('barang.index', compact('barangs')); // Menggunakan view untuk daftar barang umum
         }
     }
-    
+    public function tambahBarangCabangSatu()
+    {
+        // Cabang ID yang ingin difilter (misalnya, cabang ID = 1)
+        $cabang_id = 1;
+
+        // Ambil barang-barang yang terkait dengan cabang ID = 1
+        $barangs = Barang::where('cabang_id', $cabang_id)->get();
+
+        // Tampilkan pada view barang.view
+        return view('barang.view', compact('barangs'));
+    }
 
     public function create()
     {
