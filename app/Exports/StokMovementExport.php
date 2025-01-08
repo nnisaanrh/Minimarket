@@ -10,13 +10,25 @@ use Carbon\Carbon;
 
 class StokMovementExport implements FromCollection, WithHeadings, WithMapping
 {
+    protected $cabangId;
+
+    /**
+     * Constructor to accept cabangId.
+     */
+    public function __construct($cabangId)
+    {
+        $this->cabangId = $cabangId;
+    }
+
     /**
      * Menyediakan koleksi data untuk diekspor.
      */
     public function collection()
     {
-        // Mengambil semua data stock movement dengan relasi yang dibutuhkan
-        return StockMovement::with(['cabang', 'barang', 'user'])->get();
+        // Mengambil data stock movement berdasarkan cabang yang sedang login
+        return StockMovement::with(['cabang', 'barang', 'user'])
+            ->where('cabang_id', $this->cabangId)
+            ->get();
     }
 
     /**

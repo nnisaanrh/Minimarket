@@ -20,13 +20,22 @@ class StockMovementController extends Controller
 {
     // Menampilkan semua data stock movements dalam tampilan
     public function index()
-    {
+{
     $cabangId = auth()->user()->cabang_id; // Ambil cabang_id dari user yang sedang login
-    $stockMovements = StockMovement::with(['cabang', 'barang', 'user'])
-        ->where('cabang_id', $cabangId)
-        ->get();
-    return view('stock_movements.index', compact('stockMovements'));
+    
+    if ($cabangId) {
+        // Jika cabang_id ada, ambil barang yang terkait dengan cabang_id
+        $stockMovements = StockMovement::with(['cabang', 'barang', 'user'])
+            ->where('cabang_id', $cabangId)
+            ->get();
+    } else {
+        // Jika cabang_id null, ambil semua barang
+        $stockMovements = StockMovement::with(['cabang', 'barang', 'user'])->get();
     }
+
+    return view('stock_movements.index', compact('stockMovements'));
+}
+
 
     // Menampilkan detail satu stock movement berdasarkan ID dalam tampilan
     public function show()
@@ -156,11 +165,13 @@ class StockMovementController extends Controller
 
 
     public function export()
-    {
+{
+    // Mendapatkan ID cabang dari pengguna yang sedang login
     $cabangId = auth()->user()->cabang_id;
-    // Menjalankan ekspor ke Excel
-    return Excel::download(new StokMovementExport, 'Pergerakan Gudang.xlsx');
-    }
+    // Menjalankan ekspor ke Excel hanya untuk data cabang yang sedang login
+    return Excel::download(new StokMovementExport($cabangId), 'Pergerakan_Gudang_' . $cabangId . '.xlsx');
+}
+
 
 public function import(Request $request)
 {

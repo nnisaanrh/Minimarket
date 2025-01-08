@@ -24,7 +24,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-red-900 dark:text-gray-100">
-                <h1 class="text-3xl font-bold mb-6">Daftar Barang Cabang 5</h1>
+                <h1 class="text-3xl font-bold mb-6">Daftar Barang Cabang</h1>
 
                 {{-- Tampilkan pesan sukses jika ada --}}
                 @if (session('success'))

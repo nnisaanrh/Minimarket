@@ -22,15 +22,22 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        // Ambil cabang_id dari pengguna yang sedang login
         $cabang_id = auth()->user()->cabang_id;
-
-        // Ambil transaksi berdasarkan cabang_id yang terkait dengan pengguna
-        $transaksis = Transaksi::where('cabang_id', $cabang_id)
+    
+        // Memeriksa jika cabang_id null
+        if ($cabang_id) {
+            $transaksis = Transaksi::where('cabang_id', $cabang_id)
             ->with('transaksiDetails') // Memuat detail transaksi
             ->get();
 
         return view('transaksi.index', compact('transaksis'));
+        } else {
+            // Jika cabang_id null, ambil semua barang
+            $transaksis = Transaksi::all(); // Mengambil semua data barang
+            return view('transaksi.index', compact('transaksis')); // Menggunakan view untuk daftar barang umum
+        }
+        // Ambil transaksi berdasarkan cabang_id yang terkait dengan pengguna
+       
     }
     public function view()
     {
