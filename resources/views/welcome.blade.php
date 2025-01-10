@@ -19,7 +19,7 @@
             </style>
         @endif
     </head>
-    <body class="font-sans w-full dark:bg-black dark:text-white/50 ">
+    <body class="font-sans w-full dark:bg-black bg-red-800 dark:text-white/50 ">
                 <div class="w-full bg-red-800 h-screen items-center">
                     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3 p-7">
                         <div class="flex lg:justify-center lg:col-start-2 ">
@@ -52,11 +52,36 @@
                             </nav>
                         @endif
                     </header>  
-                    <div class="flex w-full items- justify-center mt-10">
-                        <img src="{{ asset('images/yusmart.png') }}" alt="logo smp" class="w-200 justify-center">
-                    </div>
-                     
+                    <div class="flex flex-col items-center justify-center mt-10">
+            <img src="{{ asset('images/yusmart.png') }}" alt="logo smp" class="w-200">
+            <p class="mt-4 font-sans font-semibold text-white text-2xl ">Solusi Pintar untuk Pengelolaan Toko Anda</p>
+            <p class="mt-4 text-lg font-sans text-white">Yusmart Hemat, Belanja Hemat Setiap Hari!</p>
+        </div>
+        <div class="flex w-full justify-center mt-28">
+            <div
+                class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center bg-red-800 text-white p-6 rounded-lg shadow-lg">
+                <div class="text-center lg:text-left">
+                    <h2 class="text-4xl font-bold">Promo Hemat Yusmart</h2>
+                    <p class="mt-4 text-lg">
+                        Mau Belanja Hemat? Tentunya belanja produk Hemat Yusmart dong! Nikmati produk-produk berkualitas
+                        dengan harga yang terjangkau di sini!
+                    </p>
+                    <button
+                        class="mt-6 bg-yellow-500 hover:bg-yellow-600 text-red-800 font-semibold py-2 px-4 rounded-lg shadow-md transition">
+                        DAFTAR MEMBER SEKARANG
+                    </button>
                 </div>
+                <div class="relative">
+                    <img src="{{ asset('images/sembako.png') }}" alt="Promo Hematku"
+                        class="w-full lg:max-w-md mx-auto rounded-lg shadow-lg">
+                    <div
+                        class="absolute top-0 right-0 bg-purple-700 text-white text-lg font-bold py-1 px-3 rounded-bl-lg">
+                        MEMBER BISA HEMAT S/D 50%
+                    </div>
+                </div>
+            </div>
+        </div>
+    
                 <footer class="py-16 text-center text-sm text-white dark:text-white/70 bg-red-950">
                     Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                 </footer>
